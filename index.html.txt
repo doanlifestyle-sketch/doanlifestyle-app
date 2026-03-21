@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Doanlifestyle TTS Studio</title>
+<style>
+:root{--bg1:#071224;--bg2:#0f172a;--card:rgba(10,16,32,.88);--line:rgba(255,255,255,.10);--text:#f8fafc;--muted:#cbd5e1;--green:#22c55e;--blue:#38bdf8;--amber:#f59e0b;--red:#ef4444}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--text);background:radial-gradient(circle at top left, rgba(56,189,248,.14), transparent 24%),radial-gradient(circle at top right, rgba(245,158,11,.12), transparent 28%),linear-gradient(180deg,var(--bg1),var(--bg2) 60%, #030712);min-height:100vh;padding:16px}
+.wrap{max-width:1280px;margin:0 auto}.hero{margin-bottom:14px}.badge{display:inline-block;padding:8px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(56,189,248,.12);font-weight:800;font-size:13px}h1{margin:10px 0 6px;font-size:42px;line-height:1.05}.sub{margin:0;color:var(--muted);max-width:900px;line-height:1.6}
+.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:18px;box-shadow:0 24px 70px rgba(0,0,0,.35);backdrop-filter:blur(12px)}
+.title{font-size:16px;font-weight:900;margin:0 0 8px}.desc{margin:0 0 12px;color:var(--muted);line-height:1.6;font-size:14px}label{display:block;font-weight:800;margin:12px 0 8px}
+input,textarea,select{width:100%;border-radius:16px;border:1px solid var(--line);background:#020817;color:var(--text);padding:14px;font-size:16px;outline:none}textarea{min-height:320px;resize:vertical;line-height:1.65}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.counter{text-align:right;color:#93c5fd;font-weight:800;font-size:13px;margin-top:6px}.rowBtns,.mainBtns{display:grid;gap:10px}.rowBtns{grid-template-columns:repeat(4,1fr);margin-top:12px}.mainBtns{grid-template-columns:repeat(4,1fr);margin-top:14px}
+button{border:none;border-radius:16px;padding:14px 12px;color:white;font-size:15px;font-weight:900;cursor:pointer}.green{background:linear-gradient(180deg,#4ade80,#16a34a)}.blue{background:linear-gradient(180deg,#60a5fa,#0284c7)}.amber{background:linear-gradient(180deg,#fbbf24,#d97706)}.red{background:linear-gradient(180deg,#f87171,#dc2626)}.ghost{background:#1e293b}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.pill{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#0b1220;color:#e2e8f0;font-weight:800;font-size:14px;cursor:pointer}.pill.active{border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.12);color:#fff}
+audio{width:100%;margin-top:12px}.status,.notes{margin-top:12px;padding:14px 15px;border-radius:18px;border:1px solid var(--line);background:#081120;color:var(--muted);line-height:1.6;white-space:pre-wrap;font-size:14px}
+.voiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-height:860px;overflow:auto;padding-right:4px}.voiceCard{border:1px solid var(--line);border-radius:18px;background:#081120;padding:12px}.voiceCard.active{outline:2px solid rgba(56,189,248,.55)}.voiceName{font-weight:900;font-size:18px}.voiceMeta{font-size:13px;color:var(--muted);margin:6px 0 10px;min-height:36px}.voiceActions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.smallBtn{padding:10px 8px;border-radius:12px;font-size:13px}
+@media (max-width:980px){.layout{grid-template-columns:1fr}}@media (max-width:760px){h1{font-size:30px}.grid2,.rowBtns,.mainBtns,.voiceGrid{grid-template-columns:1fr}textarea{min-height:240px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="badge">🔥 TTS Studio hoàn chỉnh</div>
+    <h1>Doanlifestyle TTS Studio</h1>
+    <p class="sub">Bản này đã gom sẵn nghe thử từng giọng, preset nhanh, và danh sách 50 kiểu giọng. OpenAI không có 50 voice gốc khác nhau, nên app dùng các voice thật của OpenAI kết hợp style để tạo ra nhiều kiểu đọc khác nhau.</p>
+  </div>
+
+  <div class="layout">
+    <section class="card">
+      <h2 class="title">Nội dung</h2>
+      <p class="desc">Dán truyện ngắn, lời dẫn YouTube, cầu nguyện, hoặc bất kỳ đoạn văn nào bạn muốn chuyển giọng đọc.</p>
+
+      <label for="apiKey">OpenAI API key</label>
+      <input id="apiKey" type="password" placeholder="Dán OpenAI API key vào đây">
+
+      <label for="text">Văn bản</label>
+      <textarea id="text">Xin chào bạn...
+
+Hôm nay...
+mình đã gom cho bạn bản đầy đủ hơn...
+
+Bạn chỉ cần dán nội dung vào đây...
+chọn giọng đọc mình thích...
+rồi bấm tạo audio...
+
+Sau đó...
+bạn có thể tải file về iPhone.</textarea>
+      <div class="counter" id="counter">0 ký tự</div>
+
+      <div class="rowBtns">
+        <button class="ghost" id="sampleStoryBtn">Mẫu kể chuyện</button>
+        <button class="ghost" id="sampleHealingBtn">Mẫu chữa lành</button>
+        <button class="ghost" id="sampleYoutubeBtn">Mẫu YouTube</button>
+        <button class="ghost" id="clearBtn">Xóa nội dung</button>
+      </div>
+
+      <label>Preset nhanh</label>
+      <div class="pills" id="presetPills"></div>
+
+      <div class="mainBtns">
+        <button class="green" id="generateBtn">Tạo audio</button>
+        <button class="blue" id="previewSelectedBtn">Nghe thử giọng đã chọn</button>
+        <button class="amber" id="downloadBtn">Tải audio</button>
+        <button class="red" id="resetBtn">Đặt lại</button>
+      </div>
+
+      <audio id="player" controls preload="none"></audio>
+      <div class="status" id="status">Sẵn sàng.</div>
+      <div class="notes" id="notes">Mẹo: nếu muốn giọng tự nhiên hơn, hãy dùng tốc độ khoảng 0.92–1.00 và các preset “Kể chuyện cảm xúc”, “Nữ dịu”, hoặc “Nam trầm”.</div>
+    </section>
+
+    <aside class="card">
+      <h2 class="title">Cài đặt</h2>
+      <p class="desc">Chọn model, tốc độ, format, và nghe thử từng giọng trước khi tạo file chính.</p>
+
+      <div class="grid2">
+        <div>
+          <label for="filename">Tên file</label>
+          <input id="filename" value="doanlifestyle_tts_studio">
+        </div>
+        <div>
+          <label for="format">Định dạng</label>
+          <select id="format">
+            <option value="mp3" selected>mp3</option>
+            <option value="wav">wav</option>
+            <option value="opus">opus</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <label for="model">Model</label>
+          <select id="model">
+            <option value="gpt-4o-mini-tts" selected>gpt-4o-mini-tts</option>
+            <option value="tts-1">tts-1</option>
+            <option value="tts-1-hd">tts-1-hd</option>
+          </select>
+        </div>
+        <div>
+          <label for="speed">Tốc độ</label>
+          <input id="speed" type="range" min="0.25" max="4" step="0.05" value="0.95">
+          <div class="counter" id="speedValue">0.95</div>
+        </div>
+      </div>
+
+      <label for="instructions">Hướng dẫn giọng đọc</label>
+      <input id="instructions" value="kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ">
+
+      <label>50 kiểu giọng để nghe thử</label>
+      <div class="voiceGrid" id="voiceGrid"></div>
+    </aside>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const PRESETS = {
+  story: { label: "Kể chuyện cảm xúc", voice: "fable", style: "kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ" },
+  healing: { label: "Nhẹ nhàng chữa lành", voice: "shimmer", style: "dịu dàng, nữ tính, mượt mà, cảm xúc nhẹ, rõ chữ" },
+  youtube: { label: "Lời dẫn YouTube", voice: "coral", style: "hiện đại, rõ chữ, năng lượng vừa, sáng, trẻ trung" },
+  clear: { label: "Thuyết minh rõ chữ", voice: "ash", style: "rõ chữ, đều nhịp, chuyên nghiệp, sạch, tự nhiên" },
+  deep: { label: "Nam trầm", voice: "onyx", style: "nam trầm, ấm, chắc, uy tín, kể chuyện chậm vừa" },
+  female: { label: "Nữ dịu", voice: "marin", style: "nữ dịu dàng, mượt, sáng, tự nhiên, cảm xúc mềm" }
+};
+const BASE_VOICES = [
+  { name: "Narrator Pro", voice: "alloy", style: "ấm, kể chuyện sâu lắng, cinematic" },
+  { name: "YouTube Story", voice: "fable", style: "kể chuyện cuốn hút, viral" },
+  { name: "Healing Female", voice: "shimmer", style: "nữ dịu dàng, chữa lành" },
+  { name: "Soft Female", voice: "nova", style: "nữ nhẹ nhàng, cảm xúc" },
+  { name: "Deep Male", voice: "onyx", style: "nam trầm, ấm, uy tín" },
+  { name: "Podcast Pro", voice: "ash", style: "rõ chữ, chuyên nghiệp" },
+  { name: "Luxury Voice", voice: "marin", style: "mượt, cao cấp, sang trọng" },
+  { name: "TikTok Viral", voice: "verse", style: "nhanh, bắt trend" },
+  { name: "Emotional Story", voice: "ballad", style: "cảm xúc, storytelling" },
+  { name: "Neutral AI", voice: "echo", style: "trung tính, rõ ràng" }
+];
+const EXTRA_STYLES = ["ấm, rõ chữ, chậm vừa","mềm, nữ tính, dịu dàng","trẻ, hiện đại, năng lượng vừa","nam trầm, chắc, uy tín","kể chuyện cuốn hút, tự nhiên","cảm xúc, sâu, điện ảnh","sáng, sạch, rõ chữ","podcast tự nhiên, mượt mà","viral, nhịp nhanh, thu hút","chữa lành, nhẹ, êm"];
+const CORE = ["alloy","ash","ballad","coral","echo","fable","nova","onyx","sage","shimmer","verse","marin","cedar"];
+const VOICES = [...BASE_VOICES, ...Array.from({ length: 40 }, (_, i) => ({name: `Voice ${i + 11}`,voice: CORE[i % CORE.length],style: EXTRA_STYLES[i % EXTRA_STYLES.length]}))];
+let selectedVoice = "alloy";
+let selectedStyle = PRESETS.story.style;
+let currentAudioBlob = null;
+let currentAudioUrl = null;
+
+function setStatus(msg){ $("status").textContent = msg; }
+function updateCounter(){ $("counter").textContent = $("text").value.length.toLocaleString('vi-VN') + " ký tự"; }
+function updateSpeed(){ $("speedValue").textContent = Number($("speed").value).toFixed(2); }
+function safeName(v){ return (v || "doanlifestyle_tts_studio").trim().replace(/[^\w\-]+/g,"_"); }
+
+function renderPresets(){
+  const wrap = $("presetPills"); wrap.innerHTML = "";
+  Object.keys(PRESETS).forEach(key => {
+    const p = PRESETS[key];
+    const btn = document.createElement("button");
+    btn.className = "pill" + (p.voice === selectedVoice && p.style === selectedStyle ? " active" : "");
+    btn.textContent = p.label;
+    btn.onclick = () => { selectedVoice = p.voice; selectedStyle = p.style; $("instructions").value = p.style; renderPresets(); renderVoices(); setStatus(`Đã chọn preset: ${p.label}`); };
+    wrap.appendChild(btn);
+  });
+}
+
+function renderVoices(){
+  const container = $("voiceGrid"); container.innerHTML = "";
+  VOICES.forEach((v) => {
+    const card = document.createElement("div");
+    card.className = "voiceCard" + (v.voice === selectedVoice && v.style === selectedStyle ? " active" : "");
+    card.innerHTML = `
+      <div class="voiceName">${v.name}</div>
+      <div class="voiceMeta">${v.voice} • ${v.style}</div>
+      <div class="voiceActions">
+        <button class="smallBtn blue" type="button">▶️ Nghe thử</button>
+        <button class="smallBtn green" type="button">✅ Chọn</button>
+      </div>
+    `;
+    const [previewBtn, selectBtn] = card.querySelectorAll("button");
+    previewBtn.onclick = () => previewVoice(v.voice, v.style);
+    selectBtn.onclick = () => { selectedVoice = v.voice; selectedStyle = v.style; $("instructions").value = v.style; renderVoices(); renderPresets(); setStatus(`Đã chọn: ${v.name}`); };
+    container.appendChild(card);
+  });
+}
+
+async function createSpeechBlob(inputText, voice, style){
+  const apiKey = $("apiKey").value.trim();
+  if(!apiKey) throw new Error("Bạn chưa nhập OpenAI API key.");
+  const payload = {model: $("model").value,voice: voice,input: inputText,format: $("format").value,response_format: $("format").value,speed: Number($("speed").value),instructions: style};
+  const res = await fetch("https://api.openai.com/v1/audio/speech", {method: "POST",headers: {"Authorization": "Bearer " + apiKey,"Content-Type": "application/json"},body: JSON.stringify(payload)});
+  if(!res.ok){ const detail = await res.text().catch(() => ""); throw new Error(res.status + "\n" + detail); }
+  return await res.blob();
+}
+
+async function previewVoice(voice, style){
+  try{
+    setStatus("Đang tạo đoạn nghe thử...");
+    const blob = await createSpeechBlob("Xin chào, đây là giọng đọc thử để bạn cảm nhận.", voice, style);
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    audio.play();
+    setStatus(`Đang nghe thử: ${voice}`);
+  }catch(err){ setStatus("Lỗi nghe thử:\n" + err.message); }
+}
+
+async function generateAudio(){
+  const text = $("text").value.trim();
+  if(!text){ setStatus("Bạn chưa nhập nội dung."); return; }
+  try{
+    setStatus("Đang tạo audio...");
+    const style = $("instructions").value.trim() || selectedStyle;
+    const blob = await createSpeechBlob(text, selectedVoice, style);
+    currentAudioBlob = blob;
+    if(currentAudioUrl) URL.revokeObjectURL(currentAudioUrl);
+    currentAudioUrl = URL.createObjectURL(blob);
+    $("player").src = currentAudioUrl;
+    setStatus(`Đã tạo audio thành công với ${selectedVoice}.`);
+  }catch(err){ setStatus("Không tạo được audio.\n" + err.message); }
+}
+
+function downloadAudio(){
+  if(!currentAudioBlob || !currentAudioUrl){ setStatus("Chưa có audio để tải."); return; }
+  const a = document.createElement("a");
+  a.href = currentAudioUrl;
+  a.download = `${safeName($("filename").value)}.${$("format").value}`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function resetAll(){
+  $("text").value = `Xin chào bạn...
+
+Hôm nay...
+mình đã gom cho bạn bản đầy đủ hơn...
+
+Bạn chỉ cần dán nội dung vào đây...
+chọn giọng đọc mình thích...
+rồi bấm tạo audio...
+
+Sau đó...
+bạn có thể tải file về iPhone.`;
+  $("filename").value = "doanlifestyle_tts_studio";
+  $("model").value = "gpt-4o-mini-tts";
+  $("format").value = "mp3";
+  $("speed").value = "0.95";
+  $("instructions").value = PRESETS.story.style;
+  selectedVoice = PRESETS.story.voice;
+  selectedStyle = PRESETS.story.style;
+  if(currentAudioUrl) URL.revokeObjectURL(currentAudioUrl);
+  currentAudioUrl = null; currentAudioBlob = null;
+  $("player").removeAttribute("src"); $("player").load();
+  updateCounter(); updateSpeed(); renderVoices(); renderPresets(); setStatus("Đã đặt lại.");
+}
+
+$("sampleStoryBtn").onclick = () => { $("text").value = `Ngày xưa...
+
+có một người...
+đã đi rất xa...
+
+xa đến mức...
+anh nghĩ rằng...
+mình không còn xứng đáng quay về nữa.`; updateCounter(); };
+$("sampleHealingBtn").onclick = () => { $("text").value = `Nếu hôm nay lòng bạn đang mỏi mệt...
+
+hãy dừng lại một chút...
+
+hít vào thật sâu...
+thở ra thật chậm...
+
+bình an vẫn có thể bắt đầu lại từ đây.`; updateCounter(); };
+$("sampleYoutubeBtn").onclick = () => { $("text").value = `Xin chào các bạn...
+
+chào mừng bạn đến với kênh của mình...
+
+trong video hôm nay...
+mình sẽ chia sẻ với bạn...
+một câu chuyện ngắn...
+nhưng rất đáng để suy ngẫm.`; updateCounter(); };
+$("clearBtn").onclick = () => { $("text").value = ""; updateCounter(); };
+$("generateBtn").onclick = generateAudio;
+$("previewSelectedBtn").onclick = () => previewVoice(selectedVoice, $("instructions").value.trim() || selectedStyle);
+$("downloadBtn").onclick = downloadAudio;
+$("resetBtn").onclick = resetAll;
+$("text").addEventListener("input", updateCounter);
+$("speed").addEventListener("input", updateSpeed);
+updateCounter(); updateSpeed(); renderPresets(); renderVoices();
+</script>
+</body>
+</html>

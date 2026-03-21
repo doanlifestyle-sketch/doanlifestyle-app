@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Doanlifestyle TTS Ultra</title>
+  <style>
+    :root{
+      --bg1:#050816;
+      --bg2:#0c1630;
+      --card:rgba(12,19,37,.82);
+      --line:rgba(148,163,184,.16);
+      --text:#f8fafc;
+      --muted:#cbd5e1;
+      --blue:#38bdf8;
+      --violet:#8b5cf6;
+      --green:#22c55e;
+      --amber:#f59e0b;
+      --red:#ef4444;
+      --shadow:0 24px 60px rgba(0,0,0,.32);
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.18), transparent 24%),
+        radial-gradient(circle at top right, rgba(139,92,246,.14), transparent 28%),
+        linear-gradient(180deg,var(--bg1),var(--bg2) 55%,#111827);
+      min-height:100vh;
+      padding:16px;
+    }
+    .wrap{max-width:1180px;margin:0 auto}
+    .hero{padding:4px 2px 16px}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      border-radius:999px;padding:8px 12px;
+      background:rgba(56,189,248,.10);
+      border:1px solid rgba(56,189,248,.22);
+      color:#bae6fd;font-size:13px;font-weight:900;
+    }
+    h1{margin:14px 0 8px;font-size:34px;line-height:1.06}
+    .sub{margin:0;color:var(--muted);line-height:1.65;max-width:880px}
+    .layout{display:grid;grid-template-columns:1.28fr .92fr;gap:16px;margin-top:18px}
+    .panel{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(12px);
+      overflow:hidden;
+    }
+    .inner{padding:18px}
+    .title{font-size:18px;font-weight:900;margin:0 0 4px}
+    .desc{margin:0 0 12px;color:var(--muted);line-height:1.6;font-size:14px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    .field{margin-top:12px}
+    label{display:block;margin:0 0 8px;font-weight:800;font-size:14px}
+    input,select,textarea{
+      width:100%;border-radius:16px;border:1px solid var(--line);
+      background:rgba(2,6,23,.84);color:var(--text);
+      padding:14px 14px;font-size:16px;outline:none;
+      transition:.18s ease;
+    }
+    textarea{min-height:330px;resize:vertical;line-height:1.68}
+    input:focus,select:focus,textarea:focus{
+      border-color:rgba(56,189,248,.46);
+      box-shadow:0 0 0 3px rgba(56,189,248,.12);
+    }
+    input[type="range"]{padding:0;background:transparent;border:none;box-shadow:none}
+    .minirow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+    .value{font-size:13px;color:#bfdbfe;font-weight:900;min-width:64px;text-align:right}
+    .counter{text-align:right;color:#93c5fd;font-size:13px;font-weight:800;margin-top:8px}
+    .toolbar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+    .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+    button{
+      border:none;border-radius:16px;padding:14px 12px;color:white;
+      font-size:15px;font-weight:900;cursor:pointer;
+      transition:transform .12s ease, opacity .18s ease;
+      box-shadow:0 12px 24px rgba(0,0,0,.18);
+    }
+    button:active{transform:scale(.985)}
+    button:disabled{opacity:.55;cursor:not-allowed}
+    .ghost{background:rgba(30,41,59,.95)}
+    .green{background:linear-gradient(180deg,#22c55e,#16a34a)}
+    .blue{background:linear-gradient(180deg,#38bdf8,#0ea5e9)}
+    .violet{background:linear-gradient(180deg,#8b5cf6,#7c3aed)}
+    .amber{background:linear-gradient(180deg,#f59e0b,#d97706)}
+    .red{background:linear-gradient(180deg,#ef4444,#dc2626)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .chip{
+      padding:10px 12px;border-radius:999px;
+      background:rgba(15,23,42,.96);border:1px solid var(--line);
+      font-size:13px;font-weight:800;color:#e2e8f0;cursor:pointer;
+      user-select:none;
+    }
+    .chip.active{
+      border-color:rgba(56,189,248,.42);
+      color:#bae6fd;background:rgba(56,189,248,.10);
+    }
+    .voice-grid{
+      display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px
+    }
+    .voice-card{
+      border:1px solid var(--line);
+      background:rgba(2,6,23,.65);
+      border-radius:16px;
+      padding:10px 12px;
+      cursor:pointer;
+    }
+    .voice-card.active{
+      border-color:rgba(56,189,248,.45);
+      box-shadow:0 0 0 2px rgba(56,189,248,.10) inset;
+      background:rgba(56,189,248,.08);
+    }
+    .voice-name{font-weight:900}
+    .voice-tag{font-size:12px;color:#cbd5e1;margin-top:4px;line-height:1.45}
+    .status{
+      margin-top:14px;padding:14px 15px;border-radius:18px;
+      border:1px solid var(--line);background:rgba(2,6,23,.76);
+      color:var(--muted);line-height:1.6;white-space:pre-wrap;font-size:14px;
+    }
+    .mini-card{
+      margin-top:12px;padding:14px;border-radius:18px;
+      border:1px solid var(--line);background:rgba(17,24,39,.7)
+    }
+    .mini-card strong{display:block;margin-bottom:6px}
+    .list{margin:8px 0 0;padding-left:18px;color:var(--muted);line-height:1.68;font-size:14px}
+    audio{width:100%;margin-top:14px;border-radius:16px;background:#020617}
+    .switch{display:flex;align-items:center;gap:10px;margin-top:12px;color:var(--muted);font-size:14px}
+    .switch input{width:auto;transform:scale(1.1)}
+    .footer-note{margin-top:14px;color:var(--muted);line-height:1.65;font-size:13px}
+    .divider{height:1px;background:var(--line);margin:14px 0}
+    @media (max-width: 930px){.layout{grid-template-columns:1fr}}
+    @media (max-width: 740px){
+      body{padding:12px}
+      h1{font-size:28px}
+      .grid,.grid3,.toolbar,.actions,.voice-grid{grid-template-columns:1fr}
+      textarea{min-height:250px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="badge">🔥 TTS Ultra • đầy đủ voice + preset + tải audio</div>
+      <h1>Doanlifestyle TTS Ultra</h1>
+      <p class="sub">Bản này gom tất cả vào một nơi: đầy đủ voice đang có trong app, preset theo mục đích dùng, giao diện đẹp hơn, lưu cài đặt trên máy, phát thử và tải audio về iPhone.</p>
+    </div>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="inner">
+          <h2 class="title">Nội dung</h2>
+          <p class="desc">Dán truyện ngắn, lời dẫn YouTube, Kinh Thánh, lời cầu nguyện hoặc bất kỳ nội dung nào bạn muốn chuyển thành giọng đọc.</p>
+
+          <div class="field">
+            <label for="text">Văn bản</label>
+            <textarea id="text" placeholder="Dán nội dung vào đây...">Xin chào bạn...
+Hôm nay...
+mình đã gom cho bạn bản đầy đủ hơn...
+
+Bạn chỉ cần dán nội dung vào đây...
+chọn giọng đọc mình thích...
+rồi bấm tạo audio...
+
+Sau đó...
+bạn có thể tải file về iPhone.</textarea>
+            <div class="counter" id="counter">0 ký tự</div>
+          </div>
+
+          <div class="toolbar">
+            <button class="ghost" id="sampleStoryBtn">Mẫu kể chuyện</button>
+            <button class="ghost" id="samplePrayerBtn">Mẫu chữa lành</button>
+            <button class="ghost" id="sampleYoutubeBtn">Mẫu YouTube</button>
+            <button class="ghost" id="clearTextBtn">Xóa nội dung</button>
+          </div>
+
+          <div class="field">
+            <label>Preset nhanh</label>
+            <div class="chips">
+              <div class="chip active" data-preset="story">Kể chuyện cảm xúc</div>
+              <div class="chip" data-preset="worship">Nhẹ nhàng chữa lành</div>
+              <div class="chip" data-preset="youtube">Lời dẫn YouTube</div>
+              <div class="chip" data-preset="clear">Thuyết minh rõ chữ</div>
+              <div class="chip" data-preset="deepmale">Nam trầm</div>
+              <div class="chip" data-preset="softfemale">Nữ dịu</div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="green" id="generateBtn">Tạo audio</button>
+            <button class="blue" id="playBtn">Phát audio</button>
+            <button class="amber" id="downloadBtn">Tải audio</button>
+            <button class="red" id="resetBtn">Đặt lại</button>
+          </div>
+
+          <audio id="player" controls preload="none"></audio>
+          <div class="status" id="status">Sẵn sàng. Nhập API key ở bên phải, dán nội dung rồi bấm “Tạo audio”.</div>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <div class="inner">
+          <h2 class="title">Cài đặt</h2>
+          <p class="desc">Chọn model, voice, tốc độ và định dạng file theo ý bạn.</p>
+
+          <div class="field">
+            <label for="apiKey">OpenAI API key</label>
+            <input id="apiKey" type="password" placeholder="Dán API key vào đây">
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="rememberKey">
+            <span>Nhớ API key trên máy này</span>
+          </label>
+
+          <div class="grid">
+            <div class="field">
+              <label for="filename">Tên file</label>
+              <input id="filename" type="text" value="doanlifestyle_tts_ultra">
+            </div>
+            <div class="field">
+              <label for="format">Định dạng</label>
+              <select id="format">
+                <option value="mp3" selected>mp3</option>
+                <option value="wav">wav</option>
+                <option value="aac">aac</option>
+                <option value="flac">flac</option>
+                <option value="opus">opus</option>
+                <option value="pcm">pcm</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="field">
+              <label for="model">Model</label>
+              <select id="model">
+                <option value="gpt-4o-mini-tts" selected>gpt-4o-mini-tts</option>
+                <option value="tts-1">tts-1</option>
+                <option value="tts-1-hd">tts-1-hd</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="speed">Tốc độ</label>
+              <div class="minirow"><span></span><span class="value" id="speedValue">1.00</span></div>
+              <input id="speed" type="range" min="0.25" max="4" step="0.05" value="1">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="instructions">Hướng dẫn giọng đọc</label>
+            <input id="instructions" type="text" placeholder="Ví dụ: kể chuyện cảm xúc, ngắt nghỉ tự nhiên, ấm áp">
+          </div>
+
+          <div class="field">
+            <label>Chọn voice</label>
+            <div class="voice-grid" id="voiceGrid"></div>
+          </div>
+
+          <div class="mini-card">
+            <strong>Gợi ý chọn nhanh</strong>
+            <ul class="list">
+              <li>Kể chuyện cảm xúc: <b>nova</b>, <b>ballad</b>, <b>fable</b></li>
+              <li>Nữ dịu nhẹ: <b>shimmer</b>, <b>marin</b>, <b>coral</b></li>
+              <li>Nam trầm: <b>onyx</b>, <b>cedar</b>, <b>sage</b></li>
+              <li>Lời dẫn hiện đại: <b>coral</b>, <b>alloy</b>, <b>verse</b></li>
+            </ul>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="mini-card">
+            <strong>Mẹo dùng trên iPhone</strong>
+            <ul class="list">
+              <li>Mở file HTML này bằng Safari.</li>
+              <li>Sau khi tạo xong, bấm <b>Tải audio</b>.</li>
+              <li>Khi hiện hộp lưu, chọn <b>Tệp</b> để giữ file trên iPhone.</li>
+              <li>Có thể thêm file này vào Màn hình chính để dùng như app.</li>
+            </ul>
+          </div>
+
+          <div class="footer-note">Bản này dùng endpoint tạo speech của OpenAI, nên bạn vẫn cần API key để tạo file audio.</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+<script>
+  const VOICES = [
+    {id:'alloy', tag:'Cân bằng, dễ dùng'},
+    {id:'ash', tag:'Rõ chữ, thuyết minh'},
+    {id:'ballad', tag:'Mềm, cảm xúc'},
+    {id:'coral', tag:'Trẻ, hiện đại'},
+    {id:'echo', tag:'Trung tính'},
+    {id:'fable', tag:'Kể chuyện'},
+    {id:'nova', tag:'Cảm xúc, cuốn'},
+    {id:'onyx', tag:'Trầm, nam tính'},
+    {id:'sage', tag:'Điềm tĩnh'},
+    {id:'shimmer', tag:'Nhẹ, nữ dịu'},
+    {id:'verse', tag:'Tự nhiên, hiện đại'},
+    {id:'marin', tag:'Chất lượng cao, mượt'},
+    {id:'cedar', tag:'Chất lượng cao, trầm ấm'}
+  ];
+
+  const PRESETS = {
+    story: {voice:'nova', speed:0.93, instructions:'kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ'},
+    worship: {voice:'shimmer', speed:0.90, instructions:'nhẹ nhàng, sâu lắng, truyền cảm, bình an, mềm mại'},
+    youtube: {voice:'coral', speed:1.03, instructions:'thân thiện, hiện đại, rõ ràng, thu hút, hợp lời dẫn video'},
+    clear: {voice:'ash', speed:1.00, instructions:'rõ chữ, sạch tiếng, đều nhịp, thuyết minh dễ nghe'},
+    deepmale: {voice:'onyx', speed:0.96, instructions:'trầm ấm, nam tính, chậm vừa, rõ chữ, tự nhiên'},
+    softfemale: {voice:'marin', speed:0.92, instructions:'dịu dàng, nữ tính, mượt mà, cảm xúc nhẹ, rõ chữ'}
+  };
+
+  const $ = id => document.getElementById(id);
+  const els = {
+    apiKey:$('apiKey'),
+    rememberKey:$('rememberKey'),
+    filename:$('filename'),
+    format:$('format'),
+    model:$('model'),
+    speed:$('speed'),
+    speedValue:$('speedValue'),
+    instructions:$('instructions'),
+    text:$('text'),
+    counter:$('counter'),
+    player:$('player'),
+    status:$('status'),
+    voiceGrid:$('voiceGrid'),
+    generateBtn:$('generateBtn'),
+    playBtn:$('playBtn'),
+    downloadBtn:$('downloadBtn'),
+    resetBtn:$('resetBtn'),
+    sampleStoryBtn:$('sampleStoryBtn'),
+    samplePrayerBtn:$('samplePrayerBtn'),
+    sampleYoutubeBtn:$('sampleYoutubeBtn'),
+    clearTextBtn:$('clearTextBtn')
+  };
+
+  let selectedVoice = 'nova';
+  let audioBlob = null;
+  let audioUrl = null;
+
+  function setStatus(msg){ els.status.textContent = msg; }
+
+  function safeName(name){
+    return (name || 'doanlifestyle_tts_ultra')
+      .trim()
+      .replace(/[^\w\-]+/g,'_')
+      .replace(/_+/g,'_')
+      .replace(/^_+|_+$/g,'') || 'doanlifestyle_tts_ultra';
+  }
+
+  function updateCounter(){
+    els.counter.textContent = els.text.value.length.toLocaleString('vi-VN') + ' ký tự';
+  }
+
+  function updateSpeed(){ els.speedValue.textContent = Number(els.speed.value).toFixed(2); }
+
+  function renderVoices(){
+    els.voiceGrid.innerHTML = '';
+    VOICES.forEach(v=>{
+      const card = document.createElement('div');
+      card.className = 'voice-card' + (v.id === selectedVoice ? ' active' : '');
+      card.innerHTML = '<div class="voice-name">'+v.id+'</div><div class="voice-tag">'+v.tag+'</div>';
+      card.addEventListener('click', ()=>{
+        selectedVoice = v.id;
+        renderVoices();
+        saveSettings();
+        setStatus('Đã chọn voice: ' + v.id);
+      });
+      els.voiceGrid.appendChild(card);
+    });
+  }
+
+  function activatePreset(name){
+    document.querySelectorAll('.chip').forEach(ch=>{
+      ch.classList.toggle('active', ch.dataset.preset === name);
+    });
+    const p = PRESETS[name];
+    if(!p) return;
+    selectedVoice = p.voice;
+    els.speed.value = p.speed;
+    els.instructions.value = p.instructions;
+    updateSpeed();
+    renderVoices();
+    saveSettings();
+    setStatus('Đã áp dụng preset.');
+  }
+
+  function saveSettings(){
+    const data = {
+      rememberKey: els.rememberKey.checked,
+      apiKey: els.rememberKey.checked ? els.apiKey.value : '',
+      filename: els.filename.value,
+      format: els.format.value,
+      model: els.model.value,
+      speed: els.speed.value,
+      instructions: els.instructions.value,
+      selectedVoice
+    };
+    localStorage.setItem('doan_tts_ultra_settings', JSON.stringify(data));
+  }
+
+  function loadSettings(){
+    try{
+      const raw = localStorage.getItem('doan_tts_ultra_settings');
+      if(!raw) return;
+      const data = JSON.parse(raw);
+      if(data.rememberKey){
+        els.rememberKey.checked = true;
+        els.apiKey.value = data.apiKey || '';
+      }
+      if(data.filename) els.filename.value = data.filename;
+      if(data.format) els.format.value = data.format;
+      if(data.model) els.model.value = data.model;
+      if(data.speed) els.speed.value = data.speed;
+      if(data.instructions) els.instructions.value = data.instructions;
+      if(data.selectedVoice) selectedVoice = data.selectedVoice;
+    }catch(e){}
+  }
+
+  function clearSavedKeyIfNeeded(){
+    if(!els.rememberKey.checked){
+      try{
+        const raw = localStorage.getItem('doan_tts_ultra_settings');
+        if(raw){
+          const data = JSON.parse(raw);
+          data.apiKey = '';
+          data.rememberKey = false;
+          localStorage.setItem('doan_tts_ultra_settings', JSON.stringify(data));
+        }
+      }catch(e){}
+    }
+  }
+
+  function setSample(type){
+    if(type === 'story'){
+      els.text.value = `Xin chào bạn...
+Hôm nay...
+mình muốn kể cho bạn nghe...
+một câu chuyện ngắn...
+nhẹ nhàng...
+và đầy cảm xúc.
+
+Có những lúc...
+ta tưởng như mọi thứ đã quá muộn...
+nhưng chính trong khoảnh khắc lặng im ấy...
+hy vọng lại bắt đầu.`;
+    } else if(type === 'prayer'){
+      els.text.value = `Nếu hôm nay lòng bạn đang mệt...
+hãy dừng lại một chút...
+
+Hít vào thật sâu...
+thở ra thật chậm...
+
+Bình an không phải lúc nào cũng đến từ hoàn cảnh...
+đôi khi...
+nó đến từ việc bạn cho phép trái tim mình được nghỉ ngơi.`;
+    } else {
+      els.text.value = `Xin chào các bạn...
+Chào mừng bạn đến với kênh của mình.
+
+Trong video hôm nay...
+mình sẽ chia sẻ với bạn...
+một nội dung ngắn...
+dễ nghe...
+dễ cảm...
+và rất hợp để thư giãn hoặc suy ngẫm.`;
+    }
+    updateCounter();
+    setStatus('Đã chèn nội dung mẫu.');
+  }
+
+  async function generateAudio(){
+    const apiKey = els.apiKey.value.trim();
+    const input = els.text.value.trim();
+
+    if(!apiKey){ setStatus('Bạn chưa nhập API key.'); return; }
+    if(!input){ setStatus('Bạn chưa nhập nội dung.'); return; }
+
+    els.generateBtn.disabled = true;
+    setStatus('Đang tạo audio...');
+
+    try{
+      const payload = {
+        model: els.model.value,
+        voice: selectedVoice,
+        input,
+        response_format: els.format.value,
+        speed: Number(els.speed.value)
+      };
+
+      const instructions = els.instructions.value.trim();
+      if(instructions && els.model.value === 'gpt-4o-mini-tts'){
+        payload.instructions = instructions;
+      }
+
+      const res = await fetch('https://api.openai.com/v1/audio/speech', {
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'Authorization':'Bearer ' + apiKey
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if(!res.ok){
+        let detail = '';
+        try{ detail = await res.text(); }catch(e){}
+        throw new Error(res.status + ' ' + res.statusText + (detail ? '\n' + detail : ''));
+      }
+
+      const blob = await res.blob();
+      if(audioUrl) URL.revokeObjectURL(audioUrl);
+      audioBlob = blob;
+      audioUrl = URL.createObjectURL(blob);
+      els.player.src = audioUrl;
+      saveSettings();
+      setStatus('Tạo audio xong ✅ Bạn có thể phát hoặc tải file.');
+    }catch(err){
+      setStatus('Không tạo được audio.\n' + err.message);
+    }finally{
+      els.generateBtn.disabled = false;
+    }
+  }
+
+  function playAudio(){
+    if(!audioUrl){ setStatus('Chưa có audio. Hãy bấm “Tạo audio” trước.'); return; }
+    els.player.play();
+    setStatus('Đang phát audio...');
+  }
+
+  function downloadAudio(){
+    if(!audioBlob || !audioUrl){ setStatus('Chưa có audio để tải.'); return; }
+    const a = document.createElement('a');
+    a.href = audioUrl;
+    a.download = safeName(els.filename.value) + '.' + els.format.value;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setStatus('Đã gửi lệnh tải file. Trên iPhone, hãy chọn lưu vào Tệp nếu được hỏi.');
+  }
+
+  function resetAll(){
+    if(audioUrl) URL.revokeObjectURL(audioUrl);
+    audioBlob = null;
+    audioUrl = null;
+    els.player.removeAttribute('src');
+    els.player.load();
+
+    els.filename.value = 'doanlifestyle_tts_ultra';
+    els.format.value = 'mp3';
+    els.model.value = 'gpt-4o-mini-tts';
+    selectedVoice = 'nova';
+    els.speed.value = '0.93';
+    els.instructions.value = PRESETS.story.instructions;
+    els.text.value = `Xin chào bạn...
+Hôm nay...
+mình đã gom cho bạn bản đầy đủ hơn...
+
+Bạn chỉ cần dán nội dung vào đây...
+chọn giọng đọc mình thích...
+rồi bấm tạo audio...
+
+Sau đó...
+bạn có thể tải file về iPhone.`;
+    updateCounter();
+    updateSpeed();
+    renderVoices();
+    document.querySelectorAll('.chip').forEach(ch=>ch.classList.toggle('active', ch.dataset.preset === 'story'));
+    saveSettings();
+    setStatus('Đã đặt lại app.');
+  }
+
+  ['apiKey','filename','format','model','instructions'].forEach(id=>{
+    els[id].addEventListener('input', saveSettings);
+    els[id].addEventListener('change', saveSettings);
+  });
+  els.speed.addEventListener('input', ()=>{ updateSpeed(); saveSettings(); });
+  els.text.addEventListener('input', updateCounter);
+  els.rememberKey.addEventListener('change', ()=>{ if(!els.rememberKey.checked) clearSavedKeyIfNeeded(); saveSettings(); });
+
+  document.querySelectorAll('.chip').forEach(ch=>{
+    ch.addEventListener('click', ()=>activatePreset(ch.dataset.preset));
+  });
+
+  els.generateBtn.addEventListener('click', generateAudio);
+  els.playBtn.addEventListener('click', playAudio);
+  els.downloadBtn.addEventListener('click', downloadAudio);
+  els.resetBtn.addEventListener('click', resetAll);
+  els.sampleStoryBtn.addEventListener('click', ()=>setSample('story'));
+  els.samplePrayerBtn.addEventListener('click', ()=>setSample('prayer'));
+  els.sampleYoutubeBtn.addEventListener('click', ()=>setSample('youtube'));
+  els.clearTextBtn.addEventListener('click', ()=>{ els.text.value=''; updateCounter(); setStatus('Đã xóa nội dung.'); });
+
+  loadSettings();
+  if(!els.instructions.value.trim()) els.instructions.value = PRESETS.story.instructions;
+  updateCounter();
+  updateSpeed();
+  renderVoices();
+</script>
+</body>
+</html>

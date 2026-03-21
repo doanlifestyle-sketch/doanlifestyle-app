@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TTS FREE - Doanlifestyle</title>
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+textarea {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+button {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    background: #22c55e;
+    color: white;
+    font-weight: bold;
+}
+audio {
+    margin-top: 20px;
+    width: 100%;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🎤 TTS FREE – Giọng Việt</h2>
+
+<input id="apiKey" placeholder="Dán FPT API Key vào đây">
+
+<textarea id="text">
+Xin chào bạn...
+Hôm nay mình kể bạn nghe một câu chuyện nhẹ nhàng...
+</textarea>
+
+<select id="voice">
+<option value="leminh">Nam - Lê Minh</option>
+<option value="giahuy">Nam - Gia Huy</option>
+<option value="banmai">Nữ - Ban Mai</option>
+<option value="thuminh">Nữ - Thu Minh</option>
+</select>
+
+<button onclick="generate()">Tạo audio</button>
+
+<audio id="player" controls></audio>
+
+<script>
+async function generate() {
+    const key = document.getElementById("apiKey").value;
+    const text = document.getElementById("text").value;
+    const voice = document.getElementById("voice").value;
+
+    if (!key) {
+        alert("Nhập API key FPT!");
+        return;
+    }
+
+    const res = await fetch("https://api.fpt.ai/hmi/tts/v5", {
+        method: "POST",
+        headers: {
+            "api_key": key,
+            "voice": voice,
+            "speed": "0",
+            "Content-Type": "text/plain"
+        },
+        body: text
+    });
+
+    const data = await res.json();
+
+    if (data.async) {
+        document.getElementById("player").src = data.async;
+    } else {
+        alert("Lỗi: " + JSON.stringify(data));
+    }
+}
+</script>
+
+</body>
+</html>

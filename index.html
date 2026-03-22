@@ -1,2 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doanlifestyle TTS Pro Max</title>
 
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:linear-gradient(135deg,#020617,#0f172a);
+  color:white;
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+textarea{
+  width:100%;
+  height:120px;
+  border-radius:10px;
+  padding:10px;
+}
+button{
+  margin:5px;
+  padding:10px 15px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+.play{background:#22c55e;}
+.download{background:#f59e0b;}
+.voice{
+  background:#1e293b;
+  padding:10px;
+  margin:5px 0;
+  border-radius:10px;
+}
+</style>
+</head>
 
+<body>
+
+<div class="container">
+
+<h2>🔥 Doanlifestyle TTS Pro Max</h2>
+
+<input id="apiKey" type="password" placeholder="Nhập API key..." style="width:100%;padding:10px;border-radius:10px;margin-bottom:10px">
+
+<textarea id="text">Xin chào... đây là giọng đọc thử.</textarea>
+
+<br>
+
+<button class="play" onclick="generate()">▶ Tạo & Nghe</button>
+<button class="download" onclick="download()">⬇ Tải file</button>
+
+<hr>
+
+<h3>🎤 Nghe thử giọng:</h3>
+<div id="voices"></div>
+
+</div>
+
+<script>
+
+const voices = [
+"alloy","ash","ballad","coral","echo",
+"fable","nova","onyx","sage","shimmer",
+"verse","marin","cedar"
+];
+
+let audioData = null;
+let currentAudio = null;
+
+function renderVoices(){
+  const box = document.getElementById("voices");
+  box.innerHTML = "";
+
+  voices.forEach(v=>{
+    const div = document.createElement("div");
+    div.className = "voice";
+    div.innerHTML = `
+      🔊 ${v}
+      <button onclick="preview('${v}')">Nghe thử</button>
+    `;
+    box.appendChild(div);
+  });
+}
+
+async function preview(voice){
+  const key = document.getElementById("apiKey").value;
+  if(!key){ alert("Nhập API key"); return; }
+
+  const res = await fetch("https://api.openai.com/v1/audio/speech",{
+    method:"POST",
+    headers:{
+      "Authorization":"Bearer "+key,
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      model:"gpt-4o-mini-tts",
+      voice:voice,
+      input:"Xin chào, đây là giọng "+voice
+    })
+  });
+
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+
+  if(currentAudio) currentAudio.pause();
+
+  currentAudio = new Audio(url);
+  currentAudio.play();
+}
+
+async function generate(){
+  const key = document.getElementById("apiKey").value;
+  const text = document.getElementById("text").value;
+
+  if(!key){ alert("Nhập API key"); return; }
+
+  const res = await fetch("https://api.openai.com/v1/audio/speech",{
+    method:"POST",
+    headers:{
+      "Authorization":"Bearer "+key,
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      model:"gpt-4o-mini-tts",
+      voice:"alloy",
+      input:text
+    })
+  });
+
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+
+  currentAudio = new Audio(url);
+  currentAudio.play();
+
+  audioData = blob;
+}
+
+function download(){
+  if(!audioData){
+    alert("Chưa có audio");
+    return;
+  }
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(audioData);
+  a.download = "doanlifestyle.mp3";
+  a.click();
+}
+
+renderVoices();
+
+</script>
+
+</body>
+</html>

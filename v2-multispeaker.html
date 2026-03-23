@@ -1,1 +1,232 @@
->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 Doanlifestyle TTS V4 AI</title>
+
+<style>
+body{
+  margin:0;
+  font-family:-apple-system;
+  background:linear-gradient(135deg,#7a5a45,#c8a98b);
+  color:#4a3425;
+}
+
+.header{
+  position:sticky;
+  top:0;
+  background:#6f4e37;
+  color:white;
+  padding:12px;
+  text-align:center;
+  font-weight:bold;
+}
+
+.container{
+  max-width:800px;
+  margin:auto;
+  padding:14px;
+}
+
+.card{
+  background:#f4e6d6;
+  padding:14px;
+  border-radius:20px;
+  margin-bottom:14px;
+}
+
+textarea, select, input{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  margin-top:10px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:12px;
+  margin-top:10px;
+  font-weight:bold;
+}
+
+.btn1{background:#8a6348;color:white;}
+.btn2{background:#a58874;color:white;}
+.btn3{background:#d6b087;color:black;}
+.btn4{background:#ef4444;color:white;}
+
+.footer{
+  background:white;
+  padding:14px;
+  border-radius:16px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">🔥 Doanlifestyle TTS V4 AI</div>
+
+<div class="container">
+
+<div class="card">
+<select id="lang">
+<option value="vi-VN">🇻🇳 Tiếng Việt</option>
+<option value="en-US">🇺🇸 English</option>
+</select>
+
+<textarea id="inputText" placeholder="Dán kịch bản vào đây..."></textarea>
+
+<button class="btn1" onclick="aiSplit()">🤖 AI chia vai</button>
+<button class="btn2" onclick="addDialog()">➕ Thêm đoạn</button>
+</div>
+
+<div class="card">
+<select id="voice"></select>
+<button class="btn1" onclick="playAll()">▶️ Nghe toàn bộ</button>
+</div>
+
+<div class="card" id="dialogList"></div>
+
+<div class="card">
+<button class="btn2" onclick="exportJSON()">📤 Export JSON</button>
+<button class="btn3" onclick="importJSON()">📥 Import JSON</button>
+<button class="btn4" onclick="clearAll()">🗑 Reset</button>
+</div>
+
+<div class="card">
+<img id="qr" width="150">
+</div>
+
+<div class="footer" id="verse"></div>
+
+</div>
+
+<script>
+
+let voices=[];
+let dialogs=[];
+
+function loadVoices(){
+  voices=speechSynthesis.getVoices();
+  let s=document.getElementById("voice");
+  s.innerHTML="";
+  voices.forEach(v=>{
+    let o=document.createElement("option");
+    o.value=v.name;
+    o.textContent=v.name;
+    s.appendChild(o);
+  });
+}
+speechSynthesis.onvoiceschanged=loadVoices;
+loadVoices();
+
+function speak(text){
+  let vName=document.getElementById("voice").value;
+  let lang=document.getElementById("lang").value;
+
+  let u=new SpeechSynthesisUtterance(text);
+  u.lang=lang;
+
+  let v=voices.find(v=>v.name===vName);
+  if(v) u.voice=v;
+
+  speechSynthesis.speak(u);
+}
+
+function addDialog(text=""){
+  dialogs.push(text);
+  render();
+}
+
+function render(){
+  let box=document.getElementById("dialogList");
+  box.innerHTML="";
+
+  dialogs.forEach((d,i)=>{
+    let t=document.createElement("textarea");
+    t.value=d;
+
+    t.oninput=()=>{
+      dialogs[i]=t.value;
+      save();
+    };
+
+    let btn=document.createElement("button");
+    btn.innerText="▶️";
+    btn.onclick=()=>speak(t.value);
+
+    box.appendChild(t);
+    box.appendChild(btn);
+  });
+}
+
+function playAll(){
+  dialogs.forEach(d=>speak(d));
+}
+
+/* AI SPLIT MOCK */
+function aiSplit(){
+  let text=document.getElementById("inputText").value;
+  if(!text) return;
+
+  let parts=text.split(".");
+  dialogs=parts.map(p=>p.trim()).filter(p=>p);
+
+  render();
+  save();
+}
+
+/* STORAGE */
+function save(){
+  localStorage.setItem("v4_project",JSON.stringify(dialogs));
+}
+
+function load(){
+  let d=localStorage.getItem("v4_project");
+  if(d) dialogs=JSON.parse(d);
+  render();
+}
+load();
+
+/* JSON */
+function exportJSON(){
+  navigator.clipboard.writeText(JSON.stringify(dialogs));
+  alert("Đã copy JSON");
+}
+
+function importJSON(){
+  let data=prompt("Dán JSON:");
+  if(data){
+    dialogs=JSON.parse(data);
+    render();
+    save();
+  }
+}
+
+function clearAll(){
+  dialogs=[];
+  render();
+  save();
+}
+
+/* QR */
+document.getElementById("qr").src=
+"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data="+location.href;
+
+/* VERSE */
+let v=[
+"Ta làm được mọi sự nhờ Đấng ban thêm sức cho ta.",
+"Be still and know that I am God.",
+"The Lord is my shepherd."
+];
+document.getElementById("verse").innerText=
+v[Math.floor(Math.random()*v.length)];
+
+</script>
+
+</body>
+</html>

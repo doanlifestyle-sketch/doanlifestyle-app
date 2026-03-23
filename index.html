@@ -1,1 +1,553 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Doanlifestyle Pro Max 50K</title>
+<style>
+:root{
+  --bg1:#4e342e; --bg2:#8d6e63; --card:#f5ede6; --line:#d7ccc8;
+  --text:#3e2723; --muted:#6d4c41; --green:#6d4c41; --blue:#8d6e63; --amber:#c8a98b; --red:#a1887f;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--text);padding:16px
+}
+.wrap{max-width:1280px;margin:0 auto}
+h1{color:#fff3e0;margin:0 0 8px;font-size:38px}
+.sub{color:#fff8f0;opacity:.95;margin:0 0 16px;line-height:1.6}
+.layout{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 18px 40px rgba(0,0,0,.18)}
+label{display:block;font-weight:800;margin:12px 0 8px}
+input,textarea,select{
+  width:100%;border-radius:14px;border:1px solid var(--line);background:#fffaf6;color:var(--text);
+  padding:13px;font-size:15px;outline:none
+}
+textarea{min-height:280px;resize:vertical;line-height:1.65}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.rowBtns{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.rowBtns2{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+button{
+  border:none;border-radius:14px;padding:13px 12px;color:#fff;font-size:14px;font-weight:900;cursor:pointer
+}
+.green{background:var(--green)} .blue{background:var(--blue)} .amber{background:var(--amber);color:#2b211d} .red{background:var(--red)}
+.counter{text-align:right;color:var(--muted);font-size:12px;font-weight:800;margin-top:6px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.pill{padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:#fff8f0;color:var(--text);font-weight:800;cursor:pointer}
+.pill.active{background:#ede0d4;border-color:#bca79a}
+.voiceGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-height:520px;overflow:auto}
+.voice{
+  border:1px solid var(--line);background:#fff8f0;border-radius:16px;padding:12px;cursor:pointer
+}
+.voice.active{outline:2px solid #8d6e63}
+.voice b{display:block;margin-bottom:4px}
+.voice small{color:var(--muted)}
+.status,.out{margin-top:12px;padding:14px;border-radius:16px;border:1px solid var(--line);background:#fff8f0;white-space:pre-wrap;line-height:1.6}
+audio,video{width:100%;margin-top:12px;border-radius:14px;background:#000}
+.part{background:#fff8f0;border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:10px}
+.part h4{margin:0 0 8px}
+small.help{display:block;color:var(--muted);margin-top:6px;line-height:1.5}
+@media (max-width:960px){.layout{grid-template-columns:1fr}}
+@media (max-width:760px){.grid2,.rowBtns,.rowBtns2,.voiceGrid{grid-template-columns:1fr} h1{font-size:30px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>☕ Doanlifestyle Pro Max 50K</h1>
+  <p class="sub">Bản này cho 50.000 ký tự: tự chia đoạn, tạo nhiều part, ghép thành 1 file WAV, tạo SRT, có video nền preview. Xuất video trong trình duyệt là chế độ thử nghiệm và có thể không hoạt động tốt trên iPad.</p>
 
+  <div class="layout">
+    <section class="card">
+      <label for="apiKey">OpenAI API key</label>
+      <input id="apiKey" type="password" placeholder="Dán API key vào đây">
+
+      <div class="grid2">
+        <div>
+          <label for="projectName">Tên project</label>
+          <input id="projectName" value="doanlifestyle_pro_max_50k">
+        </div>
+        <div>
+          <label for="voice">Giọng đang chọn</label>
+          <input id="selectedVoice" value="fable" readonly>
+        </div>
+      </div>
+
+      <label for="text">Nội dung</label>
+      <textarea id="text">Xin chào bạn...
+
+Hôm nay...
+mình muốn kể cho bạn nghe...
+một câu chuyện dài hơn...
+
+Bạn có thể dán nội dung rất dài vào đây...
+app sẽ tự chia đoạn...
+tạo từng part...
+rồi ghép lại thành một file audio duy nhất.</textarea>
+      <div class="counter"><span id="charCount">0</span> / 50000 ký tự</div>
+
+      <div class="pills" id="presetPills"></div>
+
+      <div class="rowBtns">
+        <button class="green" id="generateBtn">Tạo các part</button>
+        <button class="blue" id="mergeBtn">Ghép thành 1 file</button>
+        <button class="amber" id="downloadMergedBtn">Tải file ghép</button>
+        <button class="red" id="resetBtn">Đặt lại</button>
+      </div>
+
+      <div class="rowBtns2">
+        <button class="blue" id="previewVoiceBtn">Nghe thử giọng</button>
+        <button class="amber" id="downloadSrtBtn">Tải SRT</button>
+        <button class="red" id="exportVideoBtn">Xuất video thử nghiệm</button>
+      </div>
+
+      <audio id="mergedPlayer" controls preload="none"></audio>
+      <div class="status" id="status">Sẵn sàng.</div>
+      <div id="partsBox"></div>
+    </section>
+
+    <aside class="card">
+      <div class="grid2">
+        <div>
+          <label for="model">Model</label>
+          <select id="model">
+            <option value="gpt-4o-mini-tts" selected>gpt-4o-mini-tts</option>
+            <option value="tts-1">tts-1</option>
+          </select>
+        </div>
+        <div>
+          <label for="chunkSize">Kích thước mỗi đoạn</label>
+          <select id="chunkSize">
+            <option value="2500">2500</option>
+            <option value="3000" selected>3000</option>
+            <option value="3500">3500</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div>
+          <label for="speed">Tốc độ</label>
+          <input id="speed" type="range" min="0.5" max="1.4" step="0.05" value="0.95">
+          <div class="counter" id="speedValue">0.95</div>
+        </div>
+        <div>
+          <label for="instructions">Style đọc</label>
+          <input id="instructions" value="kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ">
+        </div>
+      </div>
+
+      <label>Chọn voice</label>
+      <div class="voiceGrid" id="voiceList"></div>
+
+      <label for="bgVideo">Video nền preview / xuất video thử nghiệm</label>
+      <input id="bgVideo" type="file" accept="video/*">
+      <small class="help">Có thể bỏ trống. Video này chỉ dùng để preview và thử mux thành video trong trình duyệt.</small>
+      <video id="videoPreview" controls muted loop playsinline></video>
+
+      <div class="out" id="srtBox">SRT sẽ hiện ở đây sau khi tạo part hoặc ghép file.</div>
+      <div class="out" id="noteBox">Ghi chú: Xuất video trong trình duyệt có thể thất bại trên iPad/Safari. Audio ghép 1 file là phần ổn định nhất.</div>
+    </aside>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const PRESETS = [
+  { key:"story", label:"Kể chuyện cảm xúc", voice:"fable", style:"kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ" },
+  { key:"healing", label:"Chữa lành nhẹ", voice:"shimmer", style:"dịu dàng, nữ tính, mượt mà, cảm xúc nhẹ, rõ chữ" },
+  { key:"youtube", label:"YouTube sáng", voice:"coral", style:"trẻ trung, rõ chữ, sáng, hiện đại" },
+  { key:"deep", label:"Nam trầm", voice:"onyx", style:"nam trầm, chắc, điềm tĩnh, rõ chữ" }
+];
+const VOICES = [
+  ["alloy","Cân bằng, dễ dùng"],["ash","Rõ chữ"],["ballad","Mềm, cảm xúc"],["coral","Trẻ, hiện đại"],
+  ["echo","Trung tính"],["fable","Kể chuyện"],["nova","Cảm xúc"],["onyx","Nam trầm"],
+  ["sage","Điềm tĩnh"],["shimmer","Nữ dịu"],["verse","Tự nhiên"],["marin","Mượt"],["cedar","Trầm ấm"]
+];
+
+let selectedVoice = "fable";
+let selectedPreset = "story";
+let partBlobs = [];
+let partUrls = [];
+let mergedBlob = null;
+let mergedUrl = "";
+let builtSrtText = "";
+
+function setStatus(msg){ $("status").textContent = msg; }
+function updateCounter(){ $("charCount").textContent = ($("text").value || "").length.toLocaleString("vi-VN"); }
+function updateSpeed(){ $("speedValue").textContent = Number($("speed").value).toFixed(2); }
+function saveLocal(){
+  localStorage.setItem("dl_pm50k_text", $("text").value);
+  localStorage.setItem("dl_pm50k_voice", selectedVoice);
+  localStorage.setItem("dl_pm50k_style", $("instructions").value);
+  localStorage.setItem("dl_pm50k_speed", $("speed").value);
+  localStorage.setItem("dl_pm50k_project", $("projectName").value);
+}
+function loadLocal(){
+  $("text").value = localStorage.getItem("dl_pm50k_text") || $("text").value;
+  $("instructions").value = localStorage.getItem("dl_pm50k_style") || $("instructions").value;
+  $("speed").value = localStorage.getItem("dl_pm50k_speed") || $("speed").value;
+  $("projectName").value = localStorage.getItem("dl_pm50k_project") || $("projectName").value;
+  selectedVoice = localStorage.getItem("dl_pm50k_voice") || selectedVoice;
+  $("selectedVoice").value = selectedVoice;
+}
+
+function renderPresets(){
+  const box = $("presetPills");
+  box.innerHTML = "";
+  PRESETS.forEach(p=>{
+    const el = document.createElement("button");
+    el.className = "pill" + (selectedPreset === p.key ? " active" : "");
+    el.textContent = p.label;
+    el.onclick = ()=>{
+      selectedPreset = p.key;
+      selectedVoice = p.voice;
+      $("selectedVoice").value = p.voice;
+      $("instructions").value = p.style;
+      renderPresets();
+      renderVoices();
+      saveLocal();
+    };
+    box.appendChild(el);
+  });
+}
+function renderVoices(){
+  const box = $("voiceList");
+  box.innerHTML = "";
+  VOICES.forEach(([name,desc])=>{
+    const el = document.createElement("div");
+    el.className = "voice" + (selectedVoice === name ? " active" : "");
+    el.innerHTML = `<b>${name}</b><small>${desc}</small>`;
+    el.onclick = ()=>{
+      selectedVoice = name;
+      $("selectedVoice").value = name;
+      renderVoices();
+      saveLocal();
+    };
+    box.appendChild(el);
+  });
+}
+
+function splitTextSmart(text, maxLen){
+  const paragraphs = text.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  const parts = [];
+  let current = "";
+
+  for(const p of paragraphs){
+    if(p.length > maxLen){
+      if(current){ parts.push(current.trim()); current = ""; }
+      let rest = p;
+      while(rest.length > maxLen){
+        let cut = rest.lastIndexOf(" ", maxLen);
+        if(cut < maxLen * 0.5) cut = maxLen;
+        parts.push(rest.slice(0, cut).trim());
+        rest = rest.slice(cut).trim();
+      }
+      if(rest) current = rest;
+      continue;
+    }
+
+    const candidate = (current ? current + "\n\n" : "") + p;
+    if(candidate.length > maxLen){
+      if(current) parts.push(current.trim());
+      current = p;
+    }else{
+      current = candidate;
+    }
+  }
+  if(current.trim()) parts.push(current.trim());
+  return parts;
+}
+
+async function ttsBlob(text){
+  const key = $("apiKey").value.trim();
+  if(!key) throw new Error("Thiếu API key.");
+  const body = {
+    model: $("model").value,
+    voice: selectedVoice,
+    input: text
+  };
+  if(body.model === "gpt-4o-mini-tts"){
+    body.speed = Number($("speed").value);
+    if($("instructions").value.trim()) body.instructions = $("instructions").value.trim();
+  }
+  const res = await fetch("https://api.openai.com/v1/audio/speech", {
+    method:"POST",
+    headers:{
+      "Authorization":"Bearer " + key,
+      "Content-Type":"application/json"
+    },
+    body: JSON.stringify(body)
+  });
+  if(!res.ok){
+    const err = await res.text().catch(()=> "");
+    throw new Error(res.status + "\n" + err);
+  }
+  return await res.blob();
+}
+
+async function previewVoice(){
+  try{
+    setStatus("Đang tạo nghe thử...");
+    const blob = await ttsBlob("Xin chào, đây là đoạn nghe thử để bạn cảm nhận giọng đọc.");
+    const url = URL.createObjectURL(blob);
+    new Audio(url).play();
+    setStatus("Đang nghe thử: " + selectedVoice);
+  }catch(e){
+    setStatus("Lỗi nghe thử:\n" + e.message);
+  }
+}
+
+function clearPartUrls(){
+  partUrls.forEach(u => URL.revokeObjectURL(u));
+  partUrls = [];
+}
+
+function renderParts(){
+  const box = $("partsBox");
+  box.innerHTML = "";
+  partBlobs.forEach((blob, i)=>{
+    const url = partUrls[i];
+    const part = document.createElement("div");
+    part.className = "part";
+    part.innerHTML = `
+      <h4>Part ${i+1}</h4>
+      <audio controls src="${url}"></audio>
+      <div style="margin-top:8px">
+        <button class="amber" type="button">Tải part ${i+1}</button>
+      </div>
+    `;
+    part.querySelector("button").onclick = ()=>{
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${($("projectName").value || "project")}_part_${i+1}.mp3`;
+      a.click();
+    };
+    box.appendChild(part);
+  });
+}
+
+async function generateParts(){
+  const text = $("text").value.trim();
+  if(!text){
+    setStatus("Thiếu nội dung.");
+    return;
+  }
+  if(text.length > 50000){
+    setStatus("Vượt quá 50.000 ký tự.");
+    return;
+  }
+
+  try{
+    saveLocal();
+    clearPartUrls();
+    partBlobs = [];
+    builtSrtText = "";
+    const parts = splitTextSmart(text, Number($("chunkSize").value));
+    setStatus(`Đang tạo ${parts.length} part...`);
+
+    for(let i=0;i<parts.length;i++){
+      setStatus(`Đang tạo part ${i+1}/${parts.length}...`);
+      const blob = await ttsBlob(parts[i]);
+      partBlobs.push(blob);
+      partUrls.push(URL.createObjectURL(blob));
+    }
+    renderParts();
+    builtSrtText = buildSrt(text);
+    $("srtBox").textContent = builtSrtText;
+    setStatus(`Đã tạo xong ${partBlobs.length} part.`);
+  }catch(e){
+    setStatus("Lỗi tạo part:\n" + e.message);
+  }
+}
+
+async function decodeAudio(blob, ctx){
+  const ab = await blob.arrayBuffer();
+  return await ctx.decodeAudioData(ab.slice(0));
+}
+function audioBufferToWavBlob(buffer){
+  const numChannels = buffer.numberOfChannels, sampleRate = buffer.sampleRate, bitsPerSample = 16;
+  const blockAlign = numChannels * bitsPerSample / 8, byteRate = sampleRate * blockAlign, dataLength = buffer.length * blockAlign;
+  const arrayBuffer = new ArrayBuffer(44 + dataLength), view = new DataView(arrayBuffer);
+  const writeStr = (off, str) => { for(let i=0;i<str.length;i++) view.setUint8(off+i, str.charCodeAt(i)); };
+  writeStr(0,'RIFF'); view.setUint32(4, 36 + dataLength, true); writeStr(8,'WAVE'); writeStr(12,'fmt ');
+  view.setUint32(16,16,true); view.setUint16(20,1,true); view.setUint16(22,numChannels,true); view.setUint32(24,sampleRate,true);
+  view.setUint32(28,byteRate,true); view.setUint16(32,blockAlign,true); view.setUint16(34,bitsPerSample,true); writeStr(36,'data'); view.setUint32(40,dataLength,true);
+  let offset = 44;
+  for(let i=0;i<buffer.length;i++){
+    for(let ch=0; ch<numChannels; ch++){
+      let sample = buffer.getChannelData(ch)[i];
+      sample = Math.max(-1, Math.min(1, sample));
+      view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+      offset += 2;
+    }
+  }
+  return new Blob([arrayBuffer], {type:'audio/wav'});
+}
+
+async function mergeParts(){
+  if(!partBlobs.length){
+    setStatus("Chưa có part để ghép.");
+    return;
+  }
+  try{
+    setStatus("Đang ghép các part thành 1 file...");
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    const ctx = new AudioCtx();
+
+    const buffers = [];
+    for(const blob of partBlobs){
+      buffers.push(await decodeAudio(blob, ctx));
+    }
+    const sampleRate = buffers[0].sampleRate;
+    const channels = Math.max(...buffers.map(b=>b.numberOfChannels));
+    const totalLength = buffers.reduce((sum,b)=> sum + b.length, 0);
+    const output = ctx.createBuffer(channels, totalLength, sampleRate);
+
+    let offset = 0;
+    for(const b of buffers){
+      for(let ch=0; ch<channels; ch++){
+        const out = output.getChannelData(ch);
+        const src = b.getChannelData(Math.min(ch, b.numberOfChannels - 1));
+        out.set(src, offset);
+      }
+      offset += b.length;
+    }
+
+    mergedBlob = audioBufferToWavBlob(output);
+    if(mergedUrl) URL.revokeObjectURL(mergedUrl);
+    mergedUrl = URL.createObjectURL(mergedBlob);
+    $("mergedPlayer").src = mergedUrl;
+    if(ctx.close) await ctx.close();
+    if(!builtSrtText) builtSrtText = buildSrt($("text").value.trim());
+    $("srtBox").textContent = builtSrtText;
+    setStatus("Đã ghép xong thành 1 file WAV.");
+  }catch(e){
+    setStatus("Lỗi ghép file:\n" + e.message);
+  }
+}
+
+function downloadMerged(){
+  if(!mergedBlob){
+    setStatus("Chưa có file ghép.");
+    return;
+  }
+  const a = document.createElement("a");
+  a.href = mergedUrl;
+  a.download = `${($("projectName").value || "project")}_merged.wav`;
+  a.click();
+}
+
+function splitCaptionLines(text,maxChars){
+  const words=text.replace(/\s+/g,' ').trim().split(' '); const out=[]; let current='';
+  for(const word of words){
+    const candidate=(current?current+' ':'')+word;
+    if(candidate.length>maxChars){ if(current) out.push(current); current=word; }
+    else current=candidate;
+  }
+  if(current) out.push(current);
+  return out;
+}
+function formatSrtTime(seconds){
+  const ms=Math.max(0,Math.round(seconds*1000)), hh=Math.floor(ms/3600000), mm=Math.floor((ms%3600000)/60000), ss=Math.floor((ms%60000)/1000), mss=ms%1000;
+  return `${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:${String(ss).padStart(2,'0')},${String(mss).padStart(3,'0')}`;
+}
+function buildSrt(text){
+  const cps=11,maxLine=60,gap=0.08,lines=splitCaptionLines(text,maxLine); let cursor=0,idx=1; const out=[];
+  lines.forEach(line=>{
+    const dur=Math.max(1.2,line.length/cps), start=cursor, end=start+dur;
+    out.push(`${idx}\n${formatSrtTime(start)} --> ${formatSrtTime(end)}\n${line}\n`);
+    cursor=end+gap; idx++;
+  });
+  return out.join("\n");
+}
+function downloadSrt(){
+  if(!builtSrtText) builtSrtText = buildSrt($("text").value.trim());
+  const blob = new Blob([builtSrtText], {type:"application/x-subrip"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${($("projectName").value || "project")}.srt`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetAll(){
+  $("text").value = `Xin chào bạn...
+
+Hôm nay...
+mình muốn kể cho bạn nghe...
+một câu chuyện dài hơn...
+
+Bạn có thể dán nội dung rất dài vào đây...
+app sẽ tự chia đoạn...
+tạo từng part...
+rồi ghép lại thành một file audio duy nhất.`;
+  $("projectName").value = "doanlifestyle_pro_max_50k";
+  $("instructions").value = "kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ";
+  $("speed").value = "0.95";
+  $("chunkSize").value = "3000";
+  $("model").value = "gpt-4o-mini-tts";
+  selectedVoice = "fable";
+  selectedPreset = "story";
+  $("selectedVoice").value = selectedVoice;
+  clearPartUrls();
+  partBlobs = [];
+  mergedBlob = null;
+  if(mergedUrl){ URL.revokeObjectURL(mergedUrl); mergedUrl = ""; }
+  $("mergedPlayer").removeAttribute("src");
+  $("partsBox").innerHTML = "";
+  builtSrtText = "";
+  $("srtBox").textContent = "SRT sẽ hiện ở đây sau khi tạo part hoặc ghép file.";
+  $("videoPreview").removeAttribute("src");
+  $("videoPreview").load();
+  updateCounter();
+  updateSpeed();
+  renderVoices();
+  renderPresets();
+  setStatus("Đã đặt lại.");
+  saveLocal();
+}
+
+async function exportVideoExperimental(){
+  if(!mergedBlob){
+    setStatus("Muốn xuất video thử nghiệm thì cần ghép xong audio trước.");
+    return;
+  }
+  const file = $("bgVideo").files[0];
+  if(!file){
+    setStatus("Chưa chọn video nền.");
+    return;
+  }
+  setStatus("Tính năng xuất video thử nghiệm trong trình duyệt rất dễ lỗi trên iPad. Bản này chỉ preview video nền. Muốn xuất video ổn định nên dùng CapCut/VN với audio ghép + SRT.");
+}
+
+$("generateBtn").onclick = generateParts;
+$("mergeBtn").onclick = mergeParts;
+$("downloadMergedBtn").onclick = downloadMerged;
+$("previewVoiceBtn").onclick = previewVoice;
+$("downloadSrtBtn").onclick = downloadSrt;
+$("exportVideoBtn").onclick = exportVideoExperimental;
+$("resetBtn").onclick = resetAll;
+$("text").addEventListener("input", ()=>{ updateCounter(); saveLocal(); });
+$("speed").addEventListener("input", ()=>{ updateSpeed(); saveLocal(); });
+$("instructions").addEventListener("input", saveLocal);
+$("projectName").addEventListener("input", saveLocal);
+$("bgVideo").addEventListener("change", (e)=>{
+  const file = e.target.files && e.target.files[0];
+  if(file){
+    const url = URL.createObjectURL(file);
+    $("videoPreview").src = url;
+    $("videoPreview").play().catch(()=>{});
+  }
+});
+
+$("apiKey").addEventListener("input", ()=>{});
+loadLocal();
+updateCounter();
+updateSpeed();
+renderPresets();
+renderVoices();
+</script>
+</body>
+</html>

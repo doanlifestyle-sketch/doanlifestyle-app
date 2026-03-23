@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>TEST V4 NEW</title>
+  <style>
+    :root{
+      --bg1:#7a5a45;
+      --bg2:#c8a98b;
+      --card:#f4e6d6;
+      --card2:#fffaf4;
+      --line:#ddc8b3;
+      --text:#4a3425;
+      --muted:#7d6553;
+      --btn1:#8a6348;
+      --btn2:#a58874;
+      --btn3:#d6b087;
+      --btn4:#b7a095;
+    }
+
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      padding:14px;
+    }
+
+    .wrap{
+      max-width:900px;
+      margin:0 auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:10px;
+      z-index:20;
+      display:flex;
+      justify-content:center;
+      margin-bottom:14px;
+    }
+
+    .topbar-inner{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      padding:10px;
+      border-radius:999px;
+      background:rgba(255,250,244,.8);
+      border:1px solid var(--line);
+    }
+
+    .nav-btn,.lang-btn{
+      border:none;
+      background:var(--card2);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:800;
+      cursor:pointer;
+      text-decoration:none;
+    }
+
+    .lang-btn.active{background:#ead8c2}
+
+    .hero{
+      color:#fff8f2;
+      margin-bottom:16px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,250,245,.18);
+      border:1px solid rgba(255,250,245,.28);
+      font-weight:800;
+      font-size:13px;
+      margin-bottom:12px;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:clamp(34px,5vw,64px);
+      line-height:1.02;
+    }
+
+    .hero p{
+      margin:0;
+      line-height:1.7;
+      font-size:15px;
+      max-width:900px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+      margin-bottom:14px;
+    }
+
+    .title{
+      font-size:18px;
+      font-weight:900;
+      margin-bottom:6px;
+    }
+
+    .sub{
+      color:var(--muted);
+      line-height:1.6;
+      margin-bottom:12px;
+      font-size:14px;
+    }
+
+    label{
+      display:block;
+      margin:12px 0 8px;
+      font-weight:800;
+      font-size:13px;
+    }
+
+    textarea,input,select{
+      width:100%;
+      border:1px solid var(--line);
+      background:var(--card2);
+      color:var(--text);
+      border-radius:16px;
+      padding:14px;
+      font-size:16px;
+      outline:none;
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+      line-height:1.7;
+    }
+
+    .big{
+      min-height:180px;
+    }
+
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+    }
+
+    .btn{
+      border:none;
+      border-radius:16px;
+      padding:13px 16px;
+      font-weight:900;
+      cursor:pointer;
+      min-height:48px;
+    }
+
+    .b1{background:var(--btn1);color:white}
+    .b2{background:var(--btn2);color:white}
+    .b3{background:var(--btn3);color:#23170f}
+    .b4{background:var(--btn4);color:white}
+
+    .stack{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .dialog{
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+    }
+
+    .dialog-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
+    }
+
+    .dot{
+      width:14px;height:14px;border-radius:999px;display:inline-block;margin-right:8px;
+      vertical-align:middle;border:2px solid rgba(0,0,0,.08);
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .json-box,.status-box{
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+      white-space:pre-wrap;
+      overflow:auto;
+    }
+
+    .json-box{
+      min-height:140px;
+      max-height:320px;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      font-size:13px;
+      line-height:1.6;
+    }
+
+    .status-box{
+      min-height:80px;
+      line-height:1.6;
+    }
+
+    .footer{
+      background:rgba(255,250,244,.86);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+      margin-top:14px;
+    }
+
+    .footer-title{
+      font-weight:900;
+      margin-bottom:8px;
+    }
+
+    .qr{
+      width:170px;
+      background:white;
+      padding:10px;
+      border-radius:18px;
+      border:1px solid var(--line);
+    }
+
+    @media (min-width: 820px){
+      .grid2{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <a href="#top" class="nav-btn">Top</a>
+        <a href="#ai" class="nav-btn">AI</a>
+        <a href="#script" class="nav-btn">Script</a>
+        <a href="#speaker" class="nav-btn">Speaker</a>
+        <button class="lang-btn active" data-lang="vi">VI</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+    </div>
+
+    <div class="hero" id="top">
+      <div class="badge" id="badgeText">🎙️ Version 4 sạch • dễ dán • dễ chạy</div>
+      <h1 id="heroTitle">Doanlifestyle TTS V4 Clean</h1>
+      <p id="heroDesc">Bản này ưu tiên đơn giản, dễ sửa, ít lỗi dán code, chạy ổn trên iPad.</p>
+    </div>
+
+    <div class="card" id="ai">
+      <div class="title" id="aiTitle">AI Workflow</div>
+      <div class="sub" id="aiSub">Dán nội dung vào đây rồi chia đoạn hoặc tạo vai mẫu.</div>
+
+      <label id="rawLabel" for="rawInput">Nội dung đầu vào</label>
+      <textarea id="rawInput" class="big" placeholder="Dán nội dung..."></textarea>
+
+      <div class="row">
+        <button class="btn b1" id="splitBtn">AI chia đoạn</button>
+        <button class="btn b2" id="castBtn">AI chia vai mẫu</button>
+        <button class="btn b3" id="promptBtn">Tạo prompt AI</button>
+        <button class="btn b4" id="clearInputBtn">Xóa input</button>
+      </div>
+
+      <div class="status-box" id="aiBox">Prompt AI sẽ hiện ở đây...</div>
+    </div>
+
+    <div class="card" id="speaker">
+      <div class="title" id="speakerTitle">Speaker settings</div>
+      <div class="sub" id="speakerSub">Đổi tên project, chọn voice preview, sửa speaker.</div>
+
+      <div class="grid2">
+        <div>
+          <label id="projectLabel" for="projectName">Tên dự án</label>
+          <input id="projectName" value="Doanlifestyle V4 Clean Project" />
+        </div>
+        <div>
+          <label id="voiceLabel" for="voiceSelect">Giọng preview hệ thống</label>
+          <select id="voiceSelect"></select>
+        </div>
+      </div>
+
+      <div class="stack" id="speakerList"></div>
+    </div>
+
+    <div class="card" id="script">
+      <div class="title" id="scriptTitle">Kịch bản hội thoại</div>
+      <div class="sub" id="scriptSub">Dialog không giới hạn, nghe thử từng đoạn hoặc toàn bộ.</div>
+
+      <div class="row">
+        <button class="btn b1" id="addSpeakerBtn">+ Thêm speaker</button>
+        <button class="btn b2" id="addDialogBtn">+ Thêm dialog</button>
+        <button class="btn b3" id="sampleBtn">Tạo mẫu</button>
+        <button class="btn b4" id="clearDialogsBtn">Xóa dialog</button>
+      </div>
+
+      <div class="stack" id="dialogList"></div>
+
+      <div class="row">
+        <button class="btn b1" id="playAllBtn">Nghe toàn bộ</button>
+        <button class="btn b2" id="exportBtn">Xuất JSON</button>
+        <button class="btn b3" id="copyBtn">Copy JSON</button>
+        <button class="btn b4" id="resetBtn">Reset</button>
+      </div>
+
+      <div class="row">
+        <button class="btn b2" id="downloadBtn">Tải JSON</button>
+        <label class="btn b3" for="importFile" style="display:inline-flex;align-items:center;justify-content:center;">Nhập JSON</label>
+        <input id="importFile" type="file" accept=".json,application/json" style="display:none">
+      </div>
+
+      <div class="status-box" id="statusBox">Sẵn sàng.</div>
+      <div class="json-box" id="jsonBox">JSON sẽ hiện ở đây...</div>
+    </div>
+
+    <div class="card">
+      <div class="title">QR</div>
+      <div class="sub">Quét mã để mở app nhanh</div>
+      <img id="qrImage" class="qr" alt="QR">
+    </div>
+
+    <div class="footer">
+      <div class="footer-title" id="verseTitle">Lời Kinh Thánh hôm nay</div>
+      <div id="verseText"></div>
+      <div class="muted" id="verseRef" style="margin-top:8px"></div>
+    </div>
+  </div>
+
+  <script>
+    const I18N = {
+      vi: {
+        badge: "🎙️ Version 4 sạch • dễ dán • dễ chạy",
+        heroTitle: "Doanlifestyle TTS V4 Clean",
+        heroDesc: "Bản này ưu tiên đơn giản, dễ sửa, ít lỗi dán code, chạy ổn trên iPad.",
+        aiTitle: "AI Workflow",
+        aiSub: "Dán nội dung vào đây rồi chia đoạn hoặc tạo vai mẫu.",
+        rawLabel: "Nội dung đầu vào",
+        splitBtn: "AI chia đoạn",
+        castBtn: "AI chia vai mẫu",
+        promptBtn: "Tạo prompt AI",
+        clearInputBtn: "Xóa input",
+        speakerTitle: "Speaker settings",
+        speakerSub: "Đổi tên project, chọn voice preview, sửa speaker.",
+        projectLabel: "Tên dự án",
+        voiceLabel: "Giọng preview hệ thống",
+        scriptTitle: "Kịch bản hội thoại",
+        scriptSub: "Dialog không giới hạn, nghe thử từng đoạn hoặc toàn bộ.",
+        addSpeakerBtn: "+ Thêm speaker",
+        addDialogBtn: "+ Thêm dialog",
+        sampleBtn: "Tạo mẫu",
+        clearDialogsBtn: "Xóa dialog",
+        playAllBtn: "Nghe toàn bộ",
+        exportBtn: "Xuất JSON",
+        copyBtn: "Copy JSON",
+        resetBtn: "Reset",
+        downloadBtn: "Tải JSON",
+        importBtn: "Nhập JSON",
+        verseTitle: "Lời Kinh Thánh hôm nay",
+        ready: "Sẵn sàng.",
+        jsonPlaceholder: "JSON sẽ hiện ở đây...",
+        aiPlaceholder: "Prompt AI sẽ hiện ở đây...",
+        defaultProject: "Doanlifestyle V4 Clean Project",
+        defaultSpeaker: "Speaker",
+        defaultVoice: "Mặc định hệ thống",
+        defaultStyle: "ấm áp, rõ chữ, tự nhiên",
+        statusNeedInput: "Bạn cần nhập nội dung đầu vào.",
+        statusSplitDone: "Đã chia nội dung thành nhiều đoạn.",
+        statusCastDone: "Đã tạo speaker và dialog mẫu từ input.",
+        statusExported: "Đã xuất JSON.",
+        statusCopied: "Đã copy JSON.",
+        statusCopyFail: "Không copy được.",
+        statusImported: "Đã nhập file JSON thành công.",
+        statusImportFail: "Không đọc được file JSON.",
+        statusDownloaded: "Đã tải file JSON.",
+        statusReset: "Đã reset project.",
+        statusAddSpeaker: "Đã thêm ",
+        statusAddDialog: "Đã thêm dialog mới.",
+        statusDeleteDialog: "Đã xóa dialog.",
+        statusPlayDone: "Đã nghe xong toàn bộ kịch bản.",
+        statusNoDialog: "Chưa có dialog nào.",
+        statusPreviewStart: "Đang nghe thử: ",
+        statusPreviewDone: "Nghe thử xong."
+      },
+      en: {
+        badge: "🎙️ Version 4 clean • easy paste • easy run",
+        heroTitle: "Doanlifestyle TTS V4 Clean",
+        heroDesc: "This version focuses on simplicity, easier editing, fewer paste errors, and stable iPad preview.",
+        aiTitle: "AI Workflow",
+        aiSub: "Paste content here, then split it or create a sample cast.",
+        rawLabel: "Raw input",
+        splitBtn: "AI split text",
+        castBtn: "AI auto cast",
+        promptBtn: "Build AI prompt",
+        clearInputBtn: "Clear input",
+        speakerTitle: "Speaker settings",
+        speakerSub: "Rename project, choose preview voice, edit speakers.",
+        projectLabel: "Project name",
+        voiceLabel: "System preview voice",
+        scriptTitle: "Dialogue script",
+        scriptSub: "Unlimited dialogue, preview each line or the whole script.",
+        addSpeakerBtn: "+ Add speaker",
+        addDialogBtn: "+ Add dialog",
+        sampleBtn: "Create sample",
+        clearDialogsBtn: "Clear dialogs",
+        playAllBtn: "Play all",
+        exportBtn: "Export JSON",
+        copyBtn: "Copy JSON",
+        resetBtn: "Reset",
+        downloadBtn: "Download JSON",
+        importBtn: "Import JSON",
+        verseTitle: "Today's Bible Verse",
+        ready: "Ready.",
+        jsonPlaceholder: "JSON will appear here...",
+        aiPlaceholder: "AI prompt will appear here...",
+        defaultProject: "Doanlifestyle V4 Clean Project",
+        defaultSpeaker: "Speaker",
+        defaultVoice: "System default",
+        defaultStyle: "warm, clear, natural",
+        statusNeedInput: "You need to enter raw input.",
+        statusSplitDone: "Input has been split into multiple blocks.",
+        statusCastDone: "Sample speakers and dialogs created from input.",
+        statusExported: "JSON exported.",
+        statusCopied: "JSON copied.",
+        statusCopyFail: "Could not copy.",
+        statusImported: "JSON imported successfully.",
+        statusImportFail: "Could not read JSON file.",
+        statusDownloaded: "JSON downloaded.",
+        statusReset: "Project reset.",
+        statusAddSpeaker: "Added ",
+        statusAddDialog: "Added a new dialog.",
+        statusDeleteDialog: "Deleted dialog.",
+        statusPlayDone: "Finished the whole script.",
+        statusNoDialog: "No dialog yet.",
+        statusPreviewStart: "Previewing: ",
+        statusPreviewDone: "Preview finished."
+      }
+    };
+
+    const VERSES = {
+      vi: [
+        ["Ta làm được mọi sự nhờ Đấng ban thêm sức cho ta.", "Phi-líp 4:13"],
+        ["Đức Giê-hô-va là Đấng chăn-giữ tôi; tôi sẽ chẳng thiếu-thốn gì.", "Thi-thiên 23:1"],
+        ["Hãy yên-lặng và biết rằng ta là Đức Chúa Trời.", "Thi-thiên 46:10"]
+      ],
+      en: [
+        ["I can do all things through Christ who strengthens me.", "Philippians 4:13"],
+        ["The Lord is my shepherd; I shall not want.", "Psalm 23:1"],
+        ["Be still, and know that I am God.", "Psalm 46:10"]
+      ]
+    };
+
+    const speakerColors = ["#D4A017","#5B95E5","#A78BFA","#34D399","#F59E0B","#EC4899"];
+    let currentLang = localStorage.getItem("v4clean_lang") || "vi";
+    let voices = [];
+    let project = loadProject() || {
+      projectName: I18N[currentLang].defaultProject,
+      previewVoice: "",
+      rawInput: "",
+      speakers: [],
+      dialogs: []
+    };
+
+    function t(key){ return I18N[currentLang][key] || key; }
+    function uid(p="id"){ return p + "_" + Math.random().toString(36).slice(2,9); }
+    function $(id){ return document.getElementById(id); }
+
+    function saveProject(){
+      project.projectName = $("projectName").value;
+      project.previewVoice = $("voiceSelect").value;
+      project.rawInput = $("rawInput").value;
+      localStorage.setItem("v4clean_project", JSON.stringify(project));
+    }
+
+    function loadProject(){
+      try {
+        return JSON.parse(localStorage.getItem("v4clean_project"));
+      } catch { return null; }
+    }
+
+    function applyLang(){
+      document.title = "TEST V4 NEW";
+      $("badgeText").textContent = t("badge");
+      $("heroTitle").textContent = t("heroTitle");
+      $("heroDesc").textContent = t("heroDesc");
+      $("aiTitle").textContent = t("aiTitle");
+      $("aiSub").textContent = t("aiSub");
+      $("rawLabel").textContent = t("rawLabel");
+      $("splitBtn").textContent = t("splitBtn");
+      $("castBtn").textContent = t("castBtn");
+      $("promptBtn").textContent = t("promptBtn");
+      $("clearInputBtn").textContent = t("clearInputBtn");
+      $("speakerTitle").textContent = t("speakerTitle");
+      $("speakerSub").textContent = t("speakerSub");
+      $("projectLabel").textContent = t("projectLabel");
+      $("voiceLabel").textContent = t("voiceLabel");
+      $("scriptTitle").textContent = t("scriptTitle");
+      $("scriptSub").textContent = t("scriptSub");
+      $("addSpeakerBtn").textContent = t("addSpeakerBtn");
+      $("addDialogBtn").textContent = t("addDialogBtn");
+      $("sampleBtn").textContent = t("sampleBtn");
+      $("clearDialogsBtn").textContent = t("clearDialogsBtn");
+      $("playAllBtn").textContent = t("playAllBtn");
+      $("exportBtn").textContent = t("exportBtn");
+      $("copyBtn").textContent = t("copyBtn");
+      $("resetBtn").textContent = t("resetBtn");
+      $("downloadBtn").textContent = t("downloadBtn");
+      $("verseTitle").textContent = t("verseTitle");
+
+      document.querySelectorAll(".lang-btn").forEach(btn=>{
+        btn.classList.toggle("active", btn.dataset.lang === currentLang);
+      });
+
+      if (!project.projectName) project.projectName = t("defaultProject");
+      $("projectName").value = project.projectName;
+      $("rawInput").value = project.rawInput || "";
+      $("statusBox").textContent = t("ready");
+      $("jsonBox").textContent = t("jsonPlaceholder");
+      $("aiBox").textContent = t("aiPlaceholder");
+
+      renderVerse();
+      renderVoices();
+      renderSpeakers();
+      renderDialogs();
+      exportJson();
+      localStorage.setItem("v4clean_lang", currentLang);
+    }
+
+    function ensureBase(){
+      if(project.speakers.length === 0){
+        project.speakers = [
+          { id: uid("sp"), name: currentLang==="en" ? "Narrator" : "Người dẫn", color: speakerColors[0], style: currentLang==="en" ? "warm narration" : "ấm áp, rõ chữ, kể chuyện", previewVoice:"" },
+          { id: uid("sp"), name: currentLang==="en" ? "Male character" : "Nhân vật nam", color: speakerColors[1], style: currentLang==="en" ? "deep, calm" : "nam trầm, chắc, điềm tĩnh", previewVoice:"" }
+        ];
+      }
+      if(project.dialogs.length === 0){
+        project.dialogs = [
+          { id: uid("dl"), speakerId: project.speakers[0].id, text: currentLang==="en" ? "Hello... today we step into a small story..." : "Xin chào bạn... hôm nay chúng ta cùng bước vào một câu chuyện nhỏ..." },
+          { id: uid("dl"), speakerId: project.speakers[1].id, text: currentLang==="en" ? "I am listening... please continue..." : "Mình đang nghe đây... hãy kể tiếp đi..." }
+        ];
+      }
+    }
+
+    function renderVoices(){
+      const select = $("voiceSelect");
+      select.innerHTML = "";
+      const o = document.createElement("option");
+      o.value = "";
+      o.textContent = t("defaultVoice");
+      select.appendChild(o);
+
+      voices.forEach(v=>{
+        const opt = document.createElement("option");
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})`;
+        select.appendChild(opt);
+      });
+      select.value = project.previewVoice || "";
+    }
+
+    function loadVoices(){
+      voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+      renderVoices();
+    }
+
+    function speakText(text, speaker){
+      if(!window.speechSynthesis) return;
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = currentLang==="en" ? "en-US" : "vi-VN";
+      const voiceName = speaker?.previewVoice || $("voiceSelect").value;
+      const found = voices.find(v=>v.name===voiceName);
+      if(found) u.voice = found;
+      u.onstart = ()=> $("statusBox").textContent = t("statusPreviewStart") + (speaker?.name || t("defaultSpeaker"));
+      u.onend = ()=> $("statusBox").textContent = t("statusPreviewDone");
+      speechSynthesis.speak(u);
+    }
+
+    function renderSpeakers(){
+      const box = $("speakerList");
+      box.innerHTML = "";
+      project.speakers.forEach((sp, i)=>{
+        const card = document.createElement("div");
+        card.className = "dialog";
+        card.innerHTML = `
+          <div class="dialog-top">
+            <div><span class="dot" style="background:${sp.color}"></span><strong>${escapeHtml(sp.name)}</strong><div class="muted">${escapeHtml(sp.style)}</div></div>
+            <div class="row" style="margin-top:0">
+              <button class="btn b3" data-act="up">↑</button>
+              <button class="btn b3" data-act="down">↓</button>
+            </div>
+          </div>
+          <div class="grid2">
+            <input value="${escapeHtml(sp.name)}" data-field="name">
+            <input type="color" value="${sp.color}" data-field="color">
+          </div>
+          <input value="${escapeHtml(sp.style)}" data-field="style">
+          <div class="row">
+            <button class="btn b2" data-act="test">Preview</button>
+            <button class="btn b3" data-act="adddialog">+ Dialog</button>
+          </div>
+        `;
+
+        card.querySelector('[data-field="name"]').oninput = e=>{
+          sp.name = e.target.value; saveProject(); renderSpeakers(); renderDialogs();
+        };
+        card.querySelector('[data-field="color"]').oninput = e=>{
+          sp.color = e.target.value; saveProject(); renderSpeakers(); renderDialogs();
+        };
+        card.querySelector('[data-field="style"]').oninput = e=>{
+          sp.style = e.target.value; saveProject(); renderSpeakers();
+        };
+        card.querySelector('[data-act="test"]').onclick = ()=> speakText(currentLang==="en" ? `Hello. This is ${sp.name}.` : `Xin chào bạn. Đây là nghe thử của ${sp.name}.`, sp);
+        card.querySelector('[data-act="adddialog"]').onclick = ()=>{
+          project.dialogs.push({ id: uid("dl"), speakerId: sp.id, text: "" });
+          saveProject(); renderDialogs();
+        };
+        card.querySelector('[data-act="up"]').onclick = ()=>{
+          if(i===0) return;
+          [project.speakers[i-1], project.speakers[i]] = [project.speakers[i], project.speakers[i-1]];
+          saveProject(); renderSpeakers();
+        };
+        card.querySelector('[data-act="down"]').onclick = ()=>{
+          if(i===project.speakers.length-1) return;
+          [project.speakers[i+1], project.speakers[i]] = [project.speakers[i], project.speakers[i+1]];
+          saveProject(); renderSpeakers();
+        };
+        box.appendChild(card);
+      });
+    }
+
+    function renderDialogs(){
+      const box = $("dialogList");
+      box.innerHTML = "";
+      project.dialogs.forEach((dl, i)=>{
+        const sp = project.speakers.find(s=>s.id===dl.speakerId) || project.speakers[0];
+        const card = document.createElement("div");
+        card.className = "dialog";
+        card.innerHTML = `
+          <div class="dialog-top">
+            <div><span class="dot" style="background:${sp.color}"></span><strong>Dialog ${i+1} • ${escapeHtml(sp.name)}</strong><div class="muted">${escapeHtml(sp.style)}</div></div>
+            <div class="row" style="margin-top:0">
+              <button class="btn b3" data-act="up">↑</button>
+              <button class="btn b3" data-act="down">↓</button>
+              <button class="btn b4" data-act="del">Xóa</button>
+            </div>
+          </div>
+          <div class="grid2">
+            <select data-field="speaker">
+              ${project.speakers.map(s=>`<option value="${s.id}" ${s.id===dl.speakerId?"selected":""}>${escapeHtml(s.name)}</option>`).join("")}
+            </select>
+            <input disabled value="${dl.text.length}">
+          </div>
+          <textarea data-field="text">${escapeHtml(dl.text)}</textarea>
+          <div class="row">
+            <button class="btn b2" data-act="preview">Nghe thử đoạn này</button>
+            <button class="btn b3" data-act="dup">Nhân đôi đoạn</button>
+          </div>
+        `;
+
+        card.querySelector('[data-field="speaker"]').onchange = e=>{
+          dl.speakerId = e.target.value; saveProject(); renderDialogs();
+        };
+        card.querySelector('[data-field="text"]').oninput = e=>{
+          dl.text = e.target.value; saveProject(); renderDialogs();
+        };
+        card.querySelector('[data-act="preview"]').onclick = ()=> speakText(dl.text, sp);
+        card.querySelector('[data-act="dup"]').onclick = ()=>{
+          project.dialogs.splice(i+1,0,{...dl,id:uid("dl")}); saveProject(); renderDialogs();
+        };
+        card.querySelector('[data-act="del"]').onclick = ()=>{
+          project.dialogs = project.dialogs.filter(d=>d.id!==dl.id); saveProject(); renderDialogs(); $("statusBox").textContent = t("statusDeleteDialog");
+        };
+        card.querySelector('[data-act="up"]').onclick = ()=>{
+          if(i===0) return;
+          [project.dialogs[i-1], project.dialogs[i]] = [project.dialogs[i], project.dialogs[i-1]];
+          saveProject(); renderDialogs();
+        };
+        card.querySelector('[data-act="down"]').onclick = ()=>{
+          if(i===project.dialogs.length-1) return;
+          [project.dialogs[i+1], project.dialogs[i]] = [project.dialogs[i], project.dialogs[i+1]];
+          saveProject(); renderDialogs();
+        };
+        box.appendChild(card);
+      });
+    }
+
+    function splitBlocks(text){
+      return text
+        .split(/\n{2,}|(?<=[\.\!\?…])\s+/u)
+        .map(s=>s.trim())
+        .filter(Boolean);
+    }
+
+    function smartSplit(){
+      const raw = $("rawInput").value.trim();
+      if(!raw){ $("statusBox").textContent = t("statusNeedInput"); return; }
+      ensureBase();
+      const blocks = splitBlocks(raw);
+      project.dialogs = blocks.map(b=>({ id: uid("dl"), speakerId: project.speakers[0].id, text: b }));
+      saveProject(); renderDialogs(); exportJson();
+      $("statusBox").textContent = t("statusSplitDone");
+    }
+
+    function autoCast(){
+      const raw = $("rawInput").value.trim();
+      if(!raw){ $("statusBox").textContent = t("statusNeedInput"); return; }
+
+      project.speakers = [
+        { id: uid("sp"), name: currentLang==="en" ? "Narrator" : "Người dẫn", color: speakerColors[0], style: currentLang==="en" ? "warm narration" : "ấm áp, rõ chữ, kể chuyện", previewVoice:"" },
+        { id: uid("sp"), name: currentLang==="en" ? "Male character" : "Nhân vật nam", color: speakerColors[1], style: currentLang==="en" ? "deep calm" : "nam trầm, chắc, điềm tĩnh", previewVoice:"" },
+        { id: uid("sp"), name: currentLang==="en" ? "Female character" : "Nhân vật nữ", color: speakerColors[2], style: currentLang==="en" ? "soft emotional" : "dịu dàng, mềm, cảm xúc", previewVoice:"" }
+      ];
+
+      const blocks = splitBlocks(raw);
+      project.dialogs = blocks.map((b, i)=>{
+        let speakerId = project.speakers[0].id;
+        if (/["“”':]/.test(b)) speakerId = i % 2 === 0 ? project.speakers[1].id : project.speakers[2].id;
+        return { id: uid("dl"), speakerId, text: b };
+      });
+
+      saveProject(); renderSpeakers(); renderDialogs(); exportJson();
+      $("statusBox").textContent = t("statusCastDone");
+    }
+
+    function buildPrompt(){
+      const raw = $("rawInput").value.trim();
+      $("aiBox").textContent =
+`PROMPT AI
+
+Language: ${currentLang}
+Project: ${$("projectName").value || t("defaultProject")}
+
+Task:
+1. Split input into natural dialogue blocks
+2. Assign each block to narrator / male / female
+3. Return JSON with speakers and dialogs
+
+Input:
+${raw || "(empty)"}`;
+    }
+
+    function exportJson(){
+      saveProject();
+      $("jsonBox").textContent = JSON.stringify(project, null, 2);
+      $("statusBox").textContent = t("statusExported");
+    }
+
+    async function copyJson(){
+      try{
+        await navigator.clipboard.writeText(JSON.stringify(project, null, 2));
+        $("statusBox").textContent = t("statusCopied");
+      }catch{
+        $("statusBox").textContent = t("statusCopyFail");
+      }
+    }
+
+    function downloadJson(){
+      const blob = new Blob([JSON.stringify(project, null, 2)], {type:"application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = (($("projectName").value || "project").trim().replace(/\s+/g,"_")) + ".json";
+      a.click();
+      URL.revokeObjectURL(url);
+      $("statusBox").textContent = t("statusDownloaded");
+    }
+
+    function importJson(file){
+      const r = new FileReader();
+      r.onload = ()=>{
+        try{
+          project = JSON.parse(r.result);
+          $("projectName").value = project.projectName || t("defaultProject");
+          $("rawInput").value = project.rawInput || "";
+          ensureBase();
+          renderSpeakers(); renderDialogs(); exportJson();
+          $("statusBox").textContent = t("statusImported");
+        }catch{
+          $("statusBox").textContent = t("statusImportFail");
+        }
+      };
+      r.readAsText(file);
+    }
+
+    function resetAll(){
+      localStorage.removeItem("v4clean_project");
+      project = {
+        projectName: t("defaultProject"),
+        previewVoice: "",
+        rawInput: "",
+        speakers: [],
+        dialogs: []
+      };
+      ensureBase();
+      $("projectName").value = project.projectName;
+      $("rawInput").value = "";
+      $("aiBox").textContent = t("aiPlaceholder");
+      renderSpeakers(); renderDialogs(); exportJson(); renderVerse();
+      $("statusBox").textContent = t("statusReset");
+    }
+
+    function playAll(){
+      if(!project.dialogs.length){ $("statusBox").textContent = t("statusNoDialog"); return; }
+      let i = 0;
+      function next(){
+        if(i >= project.dialogs.length){ $("statusBox").textContent = t("statusPlayDone"); return; }
+        const dl = project.dialogs[i];
+        const sp = project.speakers.find(s=>s.id===dl.speakerId) || project.speakers[0];
+        const u = new SpeechSynthesisUtterance(dl.text);
+        u.lang = currentLang==="en" ? "en-US" : "vi-VN";
+        const found = voices.find(v=>v.name === (sp.previewVoice || $("voiceSelect").value));
+        if(found) u.voice = found;
+        u.onend = ()=> { i++; next(); };
+        speechSynthesis.speak(u);
+      }
+      speechSynthesis.cancel();
+      next();
+    }
+
+    function renderVerse(){
+      const arr = VERSES[currentLang];
+      const pick = arr[Math.floor(Math.random()*arr.length)];
+      $("verseText").textContent = pick[0];
+      $("verseRef").textContent = pick[1];
+    }
+
+    function renderQr(){
+      $("qrImage").src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" + encodeURIComponent(location.href);
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    document.querySelectorAll(".lang-btn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        currentLang = btn.dataset.lang;
+        applyLang();
+      });
+    });
+
+    $("splitBtn").onclick = smartSplit;
+    $("castBtn").onclick = autoCast;
+    $("promptBtn").onclick = buildPrompt;
+    $("clearInputBtn").onclick = ()=>{ $("rawInput").value = ""; saveProject(); $("aiBox").textContent = t("aiPlaceholder"); };
+
+    $("addSpeakerBtn").onclick = ()=>{
+      project.speakers.push({
+        id: uid("sp"),
+        name: `${t("defaultSpeaker")} ${project.speakers.length+1}`,
+        color: speakerColors[project.speakers.length % speakerColors.length],
+        style: t("defaultStyle"),
+        previewVoice:""
+      });
+      saveProject(); renderSpeakers(); $("statusBox").textContent = t("statusAddSpeaker") + project.speakers[project.speakers.length-1].name;
+    };
+
+    $("addDialogBtn").onclick = ()=>{
+      ensureBase();
+      project.dialogs.push({ id: uid("dl"), speakerId: project.speakers[0].id, text: "" });
+      saveProject(); renderDialogs(); $("statusBox").textContent = t("statusAddDialog");
+    };
+
+    $("sampleBtn").onclick = ()=>{
+      project = {
+        projectName: t("defaultProject"),
+        previewVoice: "",
+        rawInput: "",
+        speakers: [
+          { id: uid("sp"), name: currentLang==="en" ? "Narrator" : "Người dẫn", color: speakerColors[0], style: currentLang==="en" ? "warm narration" : "ấm áp, rõ chữ, kể chuyện", previewVoice:"" },
+          { id: uid("sp"), name: currentLang==="en" ? "Male character" : "Nhân vật nam", color: speakerColors[1], style: currentLang==="en" ? "deep calm" : "nam trầm, chắc, điềm tĩnh", previewVoice:"" }
+        ],
+        dialogs: [
+          { id: uid("dl"), speakerId: "", text: currentLang==="en" ? "Hello... today we enter a small story..." : "Xin chào bạn... hôm nay chúng ta cùng bước vào một câu chuyện nhỏ..." },
+          { id: uid("dl"), speakerId: "", text: currentLang==="en" ? "I am listening... please continue..." : "Mình đang nghe đây... hãy kể tiếp đi..." }
+        ]
+      };
+      project.dialogs[0].speakerId = project.speakers[0].id;
+      project.dialogs[1].speakerId = project.speakers[1].id;
+      saveProject(); renderSpeakers(); renderDialogs(); exportJson();
+    };
+
+    $("clearDialogsBtn").onclick = ()=>{ project.dialogs = []; saveProject(); renderDialogs(); };
+    $("playAllBtn").onclick = playAll;
+    $("exportBtn").onclick = exportJson;
+    $("copyBtn").onclick = copyJson;
+    $("resetBtn").onclick = resetAll;
+    $("downloadBtn").onclick = downloadJson;
+    $("importFile").addEventListener("change", e=>{ if(e.target.files[0]) importJson(e.target.files[0]); });
+
+    if(window.speechSynthesis){
+      loadVoices();
+      speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    ensureBase();
+    renderQr();
+    applyLang();
+  </script>
+</body>
+</html>

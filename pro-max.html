@@ -1,1 +1,881 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Doan TTS" />
+  <title>Doanlifestyle TTS Pro Max</title>
+  <style>
+    :root{
+      --bg1:#7a5a45;
+      --bg2:#b68c68;
+      --bg3:#d8c0a8;
+      --card:#f4e6d6;
+      --card2:#fffaf4;
+      --line:#ddc8b3;
+      --text:#463126;
+      --muted:#7d6553;
 
+      --btn1a:#8a6348; --btn1b:#6f4e37;
+      --btn2a:#a58874; --btn2b:#8d6e63;
+      --btn3a:#d6b087; --btn3b:#c69c6d;
+      --btn4a:#b7a095; --btn4b:#a1887f;
+
+      --shadow:0 22px 60px rgba(0,0,0,.16);
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.18), transparent 20%),
+        radial-gradient(circle at top right, rgba(255,248,242,.12), transparent 25%),
+        linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3));
+      min-height:100vh;
+      padding:16px;
+    }
+
+    .wrap{
+      max-width:1220px;
+      margin:0 auto;
+    }
+
+    .hero{
+      padding:4px 2px 14px;
+      color:#fff8f2;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,250,245,.18);
+      border:1px solid rgba(255,250,245,.28);
+      font-size:13px;
+      font-weight:800;
+      color:#fff8f2;
+    }
+
+    h1{
+      margin:14px 0 8px;
+      font-size:clamp(34px,4vw,58px);
+      line-height:1.03;
+      letter-spacing:-.02em;
+      color:#fff8f2;
+    }
+
+    .desc{
+      margin:0;
+      max-width:920px;
+      font-size:15px;
+      line-height:1.7;
+      color:#fff2e6;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      margin-top:16px;
+    }
+
+    .card{
+      background:rgba(244,230,214,.97);
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(8px);
+    }
+
+    .title{
+      margin:0 0 8px;
+      font-size:16px;
+      font-weight:900;
+    }
+
+    .sub{
+      margin:0 0 12px;
+      font-size:14px;
+      line-height:1.6;
+      color:var(--muted);
+    }
+
+    label{
+      display:block;
+      margin:12px 0 8px;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    input, textarea, select{
+      width:100%;
+      border:none;
+      outline:none;
+      border-radius:16px;
+      background:var(--card2);
+      color:var(--text);
+      padding:14px 15px;
+      font-size:15px;
+      border:1px solid var(--line);
+    }
+
+    textarea{
+      min-height:290px;
+      resize:vertical;
+      line-height:1.7;
+    }
+
+    .counter{
+      text-align:right;
+      margin-top:8px;
+      font-size:12px;
+      font-weight:800;
+      color:var(--muted);
+    }
+
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .top-btn, .chip, .mini-btn{
+      border:none;
+      cursor:pointer;
+      font-weight:800;
+      color:var(--text);
+      background:#ead9c6;
+    }
+
+    .top-btn{
+      padding:11px 14px;
+      border-radius:16px;
+      font-size:14px;
+    }
+
+    .chip{
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:14px;
+    }
+
+    .chip.active{
+      background:#d9bca0;
+      box-shadow:inset 0 0 0 2px #b88d66;
+    }
+
+    .mini-btn{
+      padding:8px 12px;
+      border-radius:12px;
+      font-size:13px;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .buttons{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .main-btn{
+      border:none;
+      border-radius:18px;
+      padding:14px 12px;
+      font-size:15px;
+      font-weight:900;
+      cursor:pointer;
+      color:#fff;
+    }
+
+    .green{background:linear-gradient(180deg,var(--btn1a),var(--btn1b));}
+    .blue{background:linear-gradient(180deg,var(--btn2a),var(--btn2b));}
+    .amber{background:linear-gradient(180deg,var(--btn3a),var(--btn3b));color:#fff;}
+    .red{background:linear-gradient(180deg,var(--btn4a),var(--btn4b));}
+
+    audio{
+      width:100%;
+      margin-top:12px;
+      border-radius:16px;
+    }
+
+    .status{
+      margin-top:12px;
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 16px;
+      min-height:124px;
+      white-space:pre-wrap;
+      line-height:1.6;
+      font-size:14px;
+      overflow:auto;
+    }
+
+    .check{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:10px 0 0;
+      font-weight:800;
+    }
+
+    .check input{
+      width:20px;
+      height:20px;
+      accent-color:#8d6e63;
+    }
+
+    .voice-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+      max-height:860px;
+      overflow:auto;
+      padding-right:4px;
+    }
+
+    .voice-card{
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:14px;
+      cursor:pointer;
+      transition:.16s ease;
+    }
+
+    .voice-card.active{
+      background:#ead7c2;
+      box-shadow:inset 0 0 0 2px #b88d66;
+    }
+
+    .voice-card b{
+      display:block;
+      font-size:16px;
+      margin-bottom:6px;
+    }
+
+    .voice-card small{
+      display:block;
+      color:var(--muted);
+      line-height:1.45;
+    }
+
+    .voice-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .suggest{
+      margin-top:14px;
+      border-radius:20px;
+      padding:14px 16px;
+      background:var(--card2);
+      border:1px solid var(--line);
+    }
+
+    .suggest h4{
+      margin:0 0 8px;
+      font-size:14px;
+    }
+
+    .suggest ul{
+      margin:0;
+      padding-left:18px;
+      line-height:1.7;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .footer-tip{
+      margin-top:14px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    @media (max-width:980px){
+      .layout{grid-template-columns:1fr;}
+    }
+
+    @media (max-width:760px){
+      body{padding:10px;}
+      .grid2,.buttons,.voice-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="badge">☕ Pro Max • 50 preset giọng • nghe thử từng giọng</div>
+      <h1>Doanlifestyle TTS Pro Max</h1>
+      <p class="desc">
+        Bản này giữ layout app pro, có 50 preset giọng, nghe thử từng giọng, tạo audio thật bằng OpenAI,
+        phát audio, tải file, preset nhanh và lưu cài đặt trên máy.
+      </p>
+    </div>
+
+    <div class="layout">
+      <section class="card">
+        <div class="title">Nội dung</div>
+        <p class="sub">Dán lời dẫn YouTube, truyện ngắn, Kinh Thánh, caption hoặc nội dung bạn muốn chuyển thành giọng đọc.</p>
+
+        <label for="text">Văn bản</label>
+        <textarea id="text">Xin chào bạn...
+
+Hôm nay...
+mình đã làm bản Pro Max này cho bạn...
+
+Bạn chỉ cần dán nội dung vào đây...
+chọn preset giọng mình thích...
+bấm nghe thử...
+rồi tạo audio...
+
+Sau đó...
+bạn có thể phát hoặc tải file về iPad.</textarea>
+        <div class="counter"><span id="charCount">0</span> / 50000 ký tự</div>
+
+        <div class="row" style="margin-top:12px">
+          <button class="top-btn" id="sampleStoryBtn">Mẫu kể chuyện</button>
+          <button class="top-btn" id="sampleHealingBtn">Mẫu chữa lành</button>
+          <button class="top-btn" id="sampleYoutubeBtn">Mẫu YouTube</button>
+          <button class="top-btn" id="clearBtn">Xóa nội dung</button>
+        </div>
+
+        <div style="margin-top:12px;font-weight:900">Preset nhanh</div>
+        <div class="row" id="presetPills" style="margin-top:10px"></div>
+
+        <div class="buttons">
+          <button class="main-btn green" id="generateBtn">Tạo audio</button>
+          <button class="main-btn blue" id="playBtn">Phát audio</button>
+          <button class="main-btn amber" id="downloadBtn">Tải audio</button>
+          <button class="main-btn red" id="resetBtn">Đặt lại</button>
+        </div>
+
+        <audio id="audio" controls preload="none"></audio>
+        <div class="status" id="statusBox">Sẵn sàng.
+Nếu tạo không được audio, lỗi sẽ hiện ở đây.</div>
+      </section>
+
+      <aside class="card">
+        <div class="title">Cài đặt</div>
+        <p class="sub">Chọn model, tốc độ, tên file và preset giọng theo ý bạn.</p>
+
+        <label for="apiKey">OpenAI API key</label>
+        <input id="apiKey" type="password" placeholder="sk-xxxx..." />
+
+        <label class="check">
+          <input type="checkbox" id="rememberKey" />
+          <span>Nhớ API key trên máy này</span>
+        </label>
+
+        <div class="grid2" style="margin-top:10px">
+          <div>
+            <label for="fileName">Tên file</label>
+            <input id="fileName" value="doanlifestyle_pro_max" />
+          </div>
+          <div>
+            <label for="format">Định dạng</label>
+            <select id="format">
+              <option value="mp3" selected>mp3</option>
+              <option value="wav">wav</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid2" style="margin-top:10px">
+          <div>
+            <label for="model">Model</label>
+            <select id="model">
+              <option value="gpt-4o-mini-tts" selected>gpt-4o-mini-tts</option>
+              <option value="tts-1">tts-1</option>
+            </select>
+          </div>
+          <div>
+            <label for="speed">Tốc độ</label>
+            <select id="speed">
+              <option value="0.85">0.85</option>
+              <option value="0.95" selected>0.95</option>
+              <option value="1.00">1.00</option>
+              <option value="1.10">1.10</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="instructions">Hướng dẫn giọng đọc</label>
+        <input id="instructions" value="kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ" />
+
+        <div style="margin-top:12px;font-weight:900">50 preset giọng đọc</div>
+        <div class="voice-grid" id="voiceList"></div>
+
+        <div class="suggest">
+          <h4>Gợi ý chọn nhanh</h4>
+          <ul>
+            <li>Kể chuyện cảm xúc: <b>nova, ballad, fable</b></li>
+            <li>Nữ dịu nhẹ: <b>shimmer, marin, coral</b></li>
+            <li>Nam trầm: <b>onyx, cedar, sage</b></li>
+            <li>Lời dẫn hiện đại: <b>coral, alloy, verse</b></li>
+          </ul>
+        </div>
+
+        <div class="footer-tip">
+          Gợi ý: bấm <b>Nghe thử</b> trước khi chọn. Sau khi chọn preset, app sẽ tự áp style đọc tương ứng.
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const PRESETS = [
+      { key:"story", label:"Kể chuyện cảm xúc", instructions:"kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ", voice:"nova" },
+      { key:"healing", label:"Nhẹ nhàng chữa lành", instructions:"dịu dàng, nữ tính, mượt mà, cảm xúc nhẹ, rõ chữ", voice:"shimmer" },
+      { key:"youtube", label:"Lời dẫn YouTube", instructions:"trẻ trung, rõ chữ, có năng lượng, tự nhiên", voice:"coral" },
+      { key:"narration", label:"Thuyết minh rõ chữ", instructions:"rõ ràng, chuẩn nhịp, trung tính, dễ nghe, chuyên nghiệp", voice:"ash" },
+      { key:"male", label:"Nam trầm", instructions:"giọng nam trầm, chắc, chậm vừa, điềm tĩnh", voice:"onyx" },
+      { key:"female", label:"Nữ dịu", instructions:"nữ dịu, sáng, mềm, gần gũi, cảm xúc", voice:"marin" }
+    ];
+
+    const VOICE_PRESETS = [
+      { id:"v01", name:"Kể chuyện ấm", voice:"fable", style:"kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ" },
+      { id:"v02", name:"Kể chuyện sâu", voice:"ballad", style:"kể chuyện sâu lắng, giàu cảm xúc, chậm rãi, mềm mại" },
+      { id:"v03", name:"Kể chuyện sáng", voice:"nova", style:"kể chuyện cuốn hút, sáng giọng, tự nhiên, gần gũi" },
+      { id:"v04", name:"YouTube trẻ", voice:"coral", style:"trẻ trung, rõ chữ, hiện đại, có năng lượng" },
+      { id:"v05", name:"YouTube mạnh", voice:"alloy", style:"rõ ràng, dứt khoát, hiện đại, năng lượng vừa" },
+      { id:"v06", name:"Podcast nam", voice:"onyx", style:"podcast nam trầm, chắc, điềm tĩnh, rõ chữ" },
+      { id:"v07", name:"Podcast nữ", voice:"marin", style:"podcast nữ mượt, sang, nhẹ nhàng, dễ nghe" },
+      { id:"v08", name:"Chữa lành dịu", voice:"shimmer", style:"dịu dàng, nữ tính, chữa lành, chậm vừa, rất mềm" },
+      { id:"v09", name:"Chữa lành êm", voice:"marin", style:"êm ái, mượt mà, vỗ về, dịu nhẹ, rõ chữ" },
+      { id:"v10", name:"Thuyết minh rõ", voice:"ash", style:"thuyết minh rõ chữ, chuẩn nhịp, chuyên nghiệp" },
+      { id:"v11", name:"Thuyết minh sáng", voice:"alloy", style:"thuyết minh sáng, sạch, rõ, trung tính" },
+      { id:"v12", name:"Nam trầm 1", voice:"onyx", style:"nam trầm, chắc, chậm vừa, mạnh mẽ" },
+      { id:"v13", name:"Nam trầm 2", voice:"cedar", style:"nam trầm ấm, sâu, trưởng thành, rõ chữ" },
+      { id:"v14", name:"Điềm tĩnh", voice:"sage", style:"điềm tĩnh, chắc chắn, nhịp vừa, đáng tin" },
+      { id:"v15", name:"Trung tính sạch", voice:"echo", style:"trung tính, sạch, ít màu, dễ nghe" },
+      { id:"v16", name:"Hiện đại tự nhiên", voice:"verse", style:"tự nhiên, hiện đại, mượt, nhẹ nhàng" },
+      { id:"v17", name:"Nữ sáng", voice:"coral", style:"nữ sáng, trẻ, năng động, rõ chữ" },
+      { id:"v18", name:"Nữ mềm", voice:"shimmer", style:"nữ mềm, dịu, tình cảm, gần gũi" },
+      { id:"v19", name:"Cảm xúc mạnh", voice:"nova", style:"cảm xúc mạnh, cuốn hút, nhấn nhá tốt" },
+      { id:"v20", name:"Kinh Thánh nữ", voice:"marin", style:"trang nghiêm, dịu dàng, truyền cảm, rõ chữ" },
+      { id:"v21", name:"Kinh Thánh nam", voice:"cedar", style:"trang nghiêm, nam trầm, chậm vừa, truyền cảm" },
+      { id:"v22", name:"Lời nguyện nhẹ", voice:"shimmer", style:"nhẹ nhàng, cầu nguyện, ấm, tha thiết" },
+      { id:"v23", name:"Lời nguyện sâu", voice:"ballad", style:"tha thiết, sâu lắng, chậm, nhiều cảm xúc" },
+      { id:"v24", name:"Giới thiệu kênh", voice:"coral", style:"giới thiệu kênh, tươi sáng, rõ, có nhịp" },
+      { id:"v25", name:"Hook viral", voice:"alloy", style:"hook mở đầu, thu hút, chắc, ngắn gọn, rõ chữ" },
+      { id:"v26", name:"Review êm", voice:"verse", style:"review tự nhiên, mượt, hiện đại, thân thiện" },
+      { id:"v27", name:"Review chắc", voice:"ash", style:"review rõ ràng, logic, nhịp đều, chuyên nghiệp" },
+      { id:"v28", name:"Tin tức", voice:"echo", style:"tin tức chuẩn, nghiêm túc, rõ, trung tính" },
+      { id:"v29", name:"MC sân khấu", voice:"alloy", style:"mc trang trọng, sáng, dứt khoát, tự tin" },
+      { id:"v30", name:"MC cảm xúc", voice:"nova", style:"mc cảm xúc, gần gũi, cuốn hút" },
+      { id:"v31", name:"Ru ngủ", voice:"shimmer", style:"rất nhẹ, êm, chậm, mềm, dễ chịu" },
+      { id:"v32", name:"Thiền nhẹ", voice:"sage", style:"chậm, tĩnh, thư giãn, đều nhịp" },
+      { id:"v33", name:"Thiền sâu", voice:"cedar", style:"sâu, chậm, rất tĩnh, trầm ấm" },
+      { id:"v34", name:"Cổ tích", voice:"fable", style:"cổ tích, kể chuyện mềm, có hồn, ngắt nghỉ đẹp" },
+      { id:"v35", name:"Truyện ngắn", voice:"ballad", style:"truyện ngắn cảm xúc, mềm, lắng" },
+      { id:"v36", name:"Drama nhẹ", voice:"nova", style:"drama nhẹ, cảm xúc, tự nhiên, cuốn" },
+      { id:"v37", name:"Drama sâu", voice:"onyx", style:"drama sâu, nam tính, nặng cảm xúc" },
+      { id:"v38", name:"Bài giảng sáng", voice:"ash", style:"rõ chữ, dễ nghe, sáng, logic" },
+      { id:"v39", name:"Bài giảng trầm", voice:"sage", style:"điềm tĩnh, chậm vừa, chắc, truyền cảm" },
+      { id:"v40", name:"Giọng mẹ hiền", voice:"marin", style:"ấm, hiền, dịu dàng, che chở" },
+      { id:"v41", name:"Giọng chị kể", voice:"coral", style:"gần gũi, trẻ, tự nhiên, thân thiện" },
+      { id:"v42", name:"Giọng anh kể", voice:"cedar", style:"ấm áp, trưởng thành, gần gũi" },
+      { id:"v43", name:"Quảng bá nhẹ", voice:"verse", style:"quảng bá nhẹ, hiện đại, dễ nghe" },
+      { id:"v44", name:"Quảng bá mạnh", voice:"alloy", style:"quảng bá rõ, mạnh, chắc, có năng lượng" },
+      { id:"v45", name:"Đọc truyện đêm", voice:"fable", style:"đọc truyện đêm, êm, chậm, có chiều sâu" },
+      { id:"v46", name:"Đọc thơ", voice:"ballad", style:"đọc thơ mềm, nhấn cảm xúc, nhẹ nhàng" },
+      { id:"v47", name:"Trang trọng nữ", voice:"marin", style:"trang trọng, nữ tính, lịch sự, cao cấp" },
+      { id:"v48", name:"Trang trọng nam", voice:"onyx", style:"trang trọng, nam tính, chắc, uy tín" },
+      { id:"v49", name:"Rõ chữ sáng", voice:"ash", style:"rõ chữ tối đa, sáng, sạch, mạch lạc" },
+      { id:"v50", name:"Mượt cao cấp", voice:"marin", style:"mượt, cao cấp, sang, êm và rõ chữ" }
+    ];
+
+    let selectedPreset = "";
+    let selectedVoicePreset = VOICE_PRESETS[0];
+    let currentBlob = null;
+    let currentUrl = "";
+
+    function setStatus(text){
+      $("statusBox").textContent = text;
+    }
+
+    function updateCharCount(){
+      $("charCount").textContent = ($("text").value || "").length;
+    }
+
+    function renderPresets(){
+      const wrap = $("presetPills");
+      wrap.innerHTML = "";
+      PRESETS.forEach(p => {
+        const el = document.createElement("button");
+        el.className = "chip" + (selectedPreset === p.key ? " active" : "");
+        el.textContent = p.label;
+        el.onclick = () => {
+          selectedPreset = p.key;
+          $("instructions").value = p.instructions;
+          const found = VOICE_PRESETS.find(v => v.voice === p.voice);
+          if(found) selectedVoicePreset = found;
+          renderPresets();
+          renderVoiceList();
+          saveLocal();
+        };
+        wrap.appendChild(el);
+      });
+    }
+
+    function renderVoiceList(){
+      const wrap = $("voiceList");
+      wrap.innerHTML = "";
+
+      VOICE_PRESETS.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "voice-card" + (selectedVoicePreset.id === p.id ? " active" : "");
+        div.innerHTML = `
+          <b>${p.name}</b>
+          <small>${p.voice} • ${p.style}</small>
+          <div class="voice-actions">
+            <button type="button" class="mini-btn" data-act="preview">Nghe thử</button>
+            <button type="button" class="mini-btn" data-act="select">Chọn</button>
+          </div>
+        `;
+
+        div.querySelector('[data-act="preview"]').onclick = (e) => {
+          e.stopPropagation();
+          previewVoicePreset(p);
+        };
+
+        div.querySelector('[data-act="select"]').onclick = (e) => {
+          e.stopPropagation();
+          selectedVoicePreset = p;
+          $("instructions").value = p.style;
+          renderVoiceList();
+          saveLocal();
+          setStatus("Đã chọn giọng: " + p.name);
+        };
+
+        div.onclick = () => {
+          selectedVoicePreset = p;
+          $("instructions").value = p.style;
+          renderVoiceList();
+          saveLocal();
+          setStatus("Đã chọn giọng: " + p.name);
+        };
+
+        wrap.appendChild(div);
+      });
+    }
+
+    function setSamples(type){
+      if(type === "story"){
+        $("text").value = `Xin chào bạn...
+
+Hôm nay...
+mình muốn kể cho bạn nghe...
+một câu chuyện ngắn...
+nhưng chạm đến cảm xúc...
+
+Có những lúc...
+ta tưởng như mọi thứ đã quá muộn...
+nhưng đôi khi...
+hy vọng lại bắt đầu trong chính khoảnh khắc lặng im nhất...`;
+        $("instructions").value = "kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ";
+        selectedPreset = "story";
+      }
+
+      if(type === "healing"){
+        $("text").value = `Nếu hôm nay...
+bạn thấy mệt...
+thì hãy cho mình vài phút...
+
+Hít một hơi thật sâu...
+thở ra thật chậm...
+
+Mọi thứ rồi sẽ ổn hơn...
+từng chút một...
+nhẹ nhàng thôi...`;
+        $("instructions").value = "dịu dàng, nữ tính, mượt mà, cảm xúc nhẹ, rõ chữ";
+        selectedPreset = "healing";
+      }
+
+      if(type === "youtube"){
+        $("text").value = `Xin chào các bạn...
+chào mừng bạn đến với kênh của mình...
+
+Trong video hôm nay...
+mình sẽ chia sẻ với bạn...
+một nội dung ngắn nhưng rất đáng để nghe đến cuối...`;
+        $("instructions").value = "trẻ trung, rõ chữ, có năng lượng, tự nhiên";
+        selectedPreset = "youtube";
+      }
+
+      updateCharCount();
+      renderPresets();
+      saveLocal();
+    }
+
+    function saveLocal(){
+      const data = {
+        text: $("text").value,
+        fileName: $("fileName").value,
+        format: $("format").value,
+        model: $("model").value,
+        speed: $("speed").value,
+        instructions: $("instructions").value,
+        selectedPreset,
+        selectedVoicePresetId: selectedVoicePreset.id,
+        rememberKey: $("rememberKey").checked
+      };
+      localStorage.setItem("dl_pro_max_settings", JSON.stringify(data));
+
+      if($("rememberKey").checked){
+        localStorage.setItem("dl_pro_max_api_key", $("apiKey").value || "");
+      } else {
+        localStorage.removeItem("dl_pro_max_api_key");
+      }
+    }
+
+    function loadLocal(){
+      try{
+        const raw = localStorage.getItem("dl_pro_max_settings");
+        if(raw){
+          const d = JSON.parse(raw);
+          $("text").value = d.text ?? $("text").value;
+          $("fileName").value = d.fileName ?? $("fileName").value;
+          $("format").value = d.format ?? $("format").value;
+          $("model").value = d.model ?? $("model").value;
+          $("speed").value = d.speed ?? $("speed").value;
+          $("instructions").value = d.instructions ?? $("instructions").value;
+          selectedPreset = d.selectedPreset || "";
+          $("rememberKey").checked = !!d.rememberKey;
+          if(d.selectedVoicePresetId){
+            const found = VOICE_PRESETS.find(v => v.id === d.selectedVoicePresetId);
+            if(found) selectedVoicePreset = found;
+          }
+        }
+        const key = localStorage.getItem("dl_pro_max_api_key");
+        if(key) $("apiKey").value = key;
+      } catch(e){}
+    }
+
+    async function previewVoicePreset(preset){
+      const key = $("apiKey").value.trim();
+      const model = $("model").value;
+
+      if(!key){
+        setStatus("Thiếu OpenAI API key để nghe thử.");
+        return;
+      }
+
+      setStatus("Đang tạo nghe thử: " + preset.name + "...");
+
+      try{
+        const body = {
+          model,
+          voice: preset.voice,
+          input: "Xin chào bạn. Đây là đoạn nghe thử giọng đọc " + preset.name + "."
+        };
+
+        if(model === "gpt-4o-mini-tts"){
+          body.speed = Number($("speed").value);
+          body.instructions = preset.style;
+        }
+
+        const res = await fetch("https://api.openai.com/v1/audio/speech", {
+          method:"POST",
+          headers:{
+            "Authorization":"Bearer " + key,
+            "Content-Type":"application/json"
+          },
+          body: JSON.stringify(body)
+        });
+
+        if(!res.ok){
+          const err = await res.text();
+          setStatus("Không nghe thử được.\n" + res.status + "\n" + err);
+          return;
+        }
+
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const audio = new Audio(url);
+        audio.play();
+        setStatus("Đang nghe thử: " + preset.name);
+      } catch(err){
+        setStatus("Lỗi nghe thử.\n" + err.message);
+      }
+    }
+
+    async function generateAudio(){
+      const key = $("apiKey").value.trim();
+      const text = $("text").value.trim();
+      const model = $("model").value;
+
+      if(!key){
+        setStatus("Thiếu OpenAI API key.");
+        return;
+      }
+
+      if(!text){
+        setStatus("Thiếu nội dung văn bản.");
+        return;
+      }
+
+      if(text.length > 50000){
+        setStatus("Nội dung vượt quá 50000 ký tự.");
+        return;
+      }
+
+      saveLocal();
+      setStatus("Đang tạo audio...");
+
+      try{
+        const body = {
+          model,
+          voice: selectedVoicePreset.voice,
+          input: text
+        };
+
+        if(model === "gpt-4o-mini-tts"){
+          body.speed = Number($("speed").value);
+          body.instructions = selectedVoicePreset.style;
+        }
+
+        const res = await fetch("https://api.openai.com/v1/audio/speech", {
+          method:"POST",
+          headers:{
+            "Authorization":"Bearer " + key,
+            "Content-Type":"application/json"
+          },
+          body: JSON.stringify(body)
+        });
+
+        if(!res.ok){
+          const err = await res.text();
+          setStatus("Không tạo được audio.\n" + res.status + "\n" + err);
+          return;
+        }
+
+        const blob = await res.blob();
+        currentBlob = blob;
+
+        if(currentUrl) URL.revokeObjectURL(currentUrl);
+        currentUrl = URL.createObjectURL(blob);
+        $("audio").src = currentUrl;
+        $("audio").load();
+
+        setStatus("Đã tạo audio thành công.\nPreset: " + selectedVoicePreset.name + "\nVoice gốc: " + selectedVoicePreset.voice);
+      } catch(err){
+        setStatus("Lỗi kết nối.\n" + err.message);
+      }
+    }
+
+    function playAudio(){
+      if(!$("audio").src){
+        setStatus("Chưa có audio để phát.");
+        return;
+      }
+      $("audio").play().catch(err => {
+        setStatus("Không phát được audio.\n" + err.message);
+      });
+    }
+
+    function downloadAudio(){
+      if(!currentBlob){
+        setStatus("Chưa có audio để tải.");
+        return;
+      }
+
+      const ext = $("format").value || "mp3";
+      const name = ($("fileName").value || "doanlifestyle_pro_max").trim() + "." + ext;
+
+      const a = document.createElement("a");
+      a.href = currentUrl;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    function resetAll(){
+      $("text").value = `Xin chào bạn...
+
+Hôm nay...
+mình đã làm bản Pro Max này cho bạn...
+
+Bạn chỉ cần dán nội dung vào đây...
+chọn preset giọng mình thích...
+bấm nghe thử...
+rồi tạo audio...
+
+Sau đó...
+bạn có thể phát hoặc tải file về iPad.`;
+      $("fileName").value = "doanlifestyle_pro_max";
+      $("format").value = "mp3";
+      $("model").value = "gpt-4o-mini-tts";
+      $("speed").value = "0.95";
+      $("instructions").value = "kể chuyện cảm xúc, ấm áp, ngắt nghỉ tự nhiên, chậm vừa, rõ chữ";
+      selectedPreset = "";
+      selectedVoicePreset = VOICE_PRESETS[0];
+      $("audio").removeAttribute("src");
+      currentBlob = null;
+
+      if(currentUrl){
+        URL.revokeObjectURL(currentUrl);
+        currentUrl = "";
+      }
+
+      updateCharCount();
+      renderPresets();
+      renderVoiceList();
+      setStatus("Đã đặt lại.");
+      saveLocal();
+    }
+
+    $("text").addEventListener("input", updateCharCount);
+    $("speed").addEventListener("change", saveLocal);
+    $("instructions").addEventListener("input", saveLocal);
+    $("fileName").addEventListener("input", saveLocal);
+    $("format").addEventListener("change", saveLocal);
+    $("model").addEventListener("change", saveLocal);
+    $("apiKey").addEventListener("input", saveLocal);
+    $("rememberKey").addEventListener("change", saveLocal);
+
+    $("sampleStoryBtn").onclick = () => setSamples("story");
+    $("sampleHealingBtn").onclick = () => setSamples("healing");
+    $("sampleYoutubeBtn").onclick = () => setSamples("youtube");
+    $("clearBtn").onclick = () => {
+      $("text").value = "";
+      updateCharCount();
+      saveLocal();
+    };
+
+    $("generateBtn").onclick = generateAudio;
+    $("playBtn").onclick = playAudio;
+    $("downloadBtn").onclick = downloadAudio;
+    $("resetBtn").onclick = resetAll;
+
+    loadLocal();
+    updateCharCount();
+    renderPresets();
+    renderVoiceList();
+  </script>
+</body>
+</html>

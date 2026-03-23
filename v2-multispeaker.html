@@ -1,1 +1,1098 @@
 
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Doanlifestyle TTS V2" />
+  <title>Doanlifestyle TTS V2 Multi-Speaker</title>
+
+  <style>
+    :root{
+      --bg1:#7a5a45;
+      --bg2:#b68c68;
+      --bg3:#d8c0a8;
+      --card:#f4e6d6;
+      --card2:#fffaf4;
+      --line:#ddc8b3;
+      --text:#463126;
+      --muted:#7d6553;
+
+      --btn1a:#8a6348; --btn1b:#6f4e37;
+      --btn2a:#a58874; --btn2b:#8d6e63;
+      --btn3a:#d6b087; --btn3b:#c69c6d;
+      --btn4a:#b7a095; --btn4b:#a1887f;
+
+      --yt1:#ef4444; --yt2:#b91c1c;
+      --shadow:0 22px 60px rgba(0,0,0,.16);
+    }
+
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,.18), transparent 20%),
+        radial-gradient(circle at top right, rgba(255,248,242,.12), transparent 25%),
+        linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3));
+      min-height:100vh;
+      padding:16px;
+    }
+
+    .wrap{
+      max-width:1280px;
+      margin:0 auto;
+    }
+
+    .hero{
+      padding:4px 2px 14px;
+      color:#fff8f2;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,250,245,.18);
+      border:1px solid rgba(255,250,245,.28);
+      font-size:13px;
+      font-weight:800;
+      color:#fff8f2;
+    }
+
+    .brand-head{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      margin:14px 0 8px;
+      flex-wrap:wrap;
+    }
+
+    .brand-link{
+      display:inline-flex;
+      text-decoration:none;
+    }
+
+    .brand-logo{
+      width:92px;
+      height:92px;
+      border-radius:24px;
+      object-fit:cover;
+      border:2px solid rgba(255,248,242,.35);
+      box-shadow:0 12px 28px rgba(0,0,0,.25);
+      background:#fff;
+    }
+
+    .brand-title{
+      margin:0;
+      font-size:clamp(30px,4vw,54px);
+      line-height:1.03;
+      letter-spacing:-.02em;
+      color:#fff8f2;
+      font-weight:900;
+    }
+
+    .brand-sub{
+      margin-top:6px;
+      color:#fff2e6;
+      font-size:14px;
+      line-height:1.6;
+      font-weight:700;
+    }
+
+    .desc{
+      margin:0;
+      max-width:980px;
+      font-size:15px;
+      line-height:1.7;
+      color:#fff2e6;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:18px;
+      margin-top:16px;
+    }
+
+    .card{
+      background:rgba(244,230,214,.97);
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(8px);
+    }
+
+    .title{
+      margin:0 0 8px;
+      font-size:16px;
+      font-weight:900;
+    }
+
+    .sub{
+      margin:0 0 12px;
+      font-size:14px;
+      line-height:1.6;
+      color:var(--muted);
+    }
+
+    label{
+      display:block;
+      margin:12px 0 8px;
+      font-size:13px;
+      font-weight:900;
+    }
+
+    input, textarea, select{
+      width:100%;
+      border:none;
+      outline:none;
+      border-radius:16px;
+      background:var(--card2);
+      color:var(--text);
+      padding:14px 15px;
+      font-size:15px;
+      border:1px solid var(--line);
+    }
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+      line-height:1.7;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr;
+      gap:12px;
+    }
+
+    .top-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .buttons{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .main-btn, .small-btn, .pill, .yt-btn{
+      border:none;
+      cursor:pointer;
+      font-weight:900;
+      border-radius:16px;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .main-btn{
+      padding:14px 12px;
+      font-size:15px;
+      color:#fff;
+    }
+
+    .small-btn{
+      padding:10px 12px;
+      font-size:13px;
+      color:var(--text);
+      background:#ead8c2;
+    }
+
+    .pill{
+      padding:10px 14px;
+      font-size:14px;
+      color:var(--text);
+      background:#ead8c2;
+    }
+
+    .yt-btn{
+      padding:12px 16px;
+      font-size:14px;
+      color:#fff;
+      background:linear-gradient(180deg,var(--yt1),var(--yt2));
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+    }
+
+    .green{background:linear-gradient(180deg,var(--btn1a),var(--btn1b));}
+    .blue{background:linear-gradient(180deg,var(--btn2a),var(--btn2b));}
+    .amber{background:linear-gradient(180deg,var(--btn3a),var(--btn3b));}
+    .red{background:linear-gradient(180deg,var(--btn4a),var(--btn4b));}
+
+    .speaker-list, .dialog-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .speaker-card, .dialog-card{
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:14px;
+    }
+
+    .speaker-top, .dialog-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .speaker-left, .dialog-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+
+    .dot{
+      width:14px;
+      height:14px;
+      border-radius:999px;
+      flex:0 0 auto;
+      border:2px solid rgba(0,0,0,.08);
+    }
+
+    .speaker-name{
+      font-weight:900;
+      font-size:15px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .dialog-card textarea{
+      min-height:98px;
+    }
+
+    .status{
+      margin-top:12px;
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 16px;
+      min-height:110px;
+      white-space:pre-wrap;
+      line-height:1.6;
+      font-size:14px;
+      overflow:auto;
+    }
+
+    .json-box{
+      margin-top:12px;
+      background:var(--card2);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px 16px;
+      min-height:160px;
+      white-space:pre-wrap;
+      line-height:1.6;
+      font-size:13px;
+      overflow:auto;
+      font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    .promo-box{
+      margin-top:14px;
+      border-radius:22px;
+      padding:16px;
+      background:var(--card2);
+      border:1px solid var(--line);
+    }
+
+    .promo-title{
+      font-size:16px;
+      font-weight:900;
+      margin-bottom:8px;
+    }
+
+    .promo-text{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+      margin-bottom:12px;
+    }
+
+    .qr-box{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .qr-box img{
+      width:180px;
+      max-width:100%;
+      border-radius:18px;
+      background:#fff;
+      padding:10px;
+      border:1px solid var(--line);
+      box-shadow:0 10px 24px rgba(0,0,0,.10);
+    }
+
+    .help{
+      margin-top:14px;
+      border-radius:20px;
+      padding:14px 16px;
+      background:var(--card2);
+      border:1px solid var(--line);
+    }
+
+    .help h4{
+      margin:0 0 8px;
+      font-size:14px;
+    }
+
+    .help ul{
+      margin:0;
+      padding-left:18px;
+      line-height:1.7;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .footer{
+      margin-top:20px;
+      background:rgba(255,250,244,.76);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px 18px;
+      box-shadow:var(--shadow);
+    }
+
+    .footer-top{
+      font-weight:900;
+      margin-bottom:8px;
+      color:var(--text);
+    }
+
+    .verse-box{
+      font-size:15px;
+      line-height:1.8;
+      color:var(--text);
+    }
+
+    .verse-ref{
+      margin-top:8px;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:800;
+    }
+
+    @media (max-width:980px){
+      .layout{grid-template-columns:1fr;}
+    }
+
+    @media (max-width:760px){
+      body{padding:10px;}
+      .grid2, .grid3, .buttons{grid-template-columns:1fr;}
+      .speaker-top, .dialog-top{flex-direction:column; align-items:flex-start;}
+      .brand-head{align-items:flex-start;}
+      .brand-logo{width:76px;height:76px;border-radius:20px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="badge">🎙️ Version 2 • hội thoại không giới hạn • miễn phí</div>
+
+      <div class="brand-head">
+        <a class="brand-link" href="https://doanlifestyle-sketch.github.io/doanlifestyle-app/" target="_blank" rel="noopener noreferrer">
+          <img src="logo-doanlifestyle-pro.jpg" alt="TTS Doanlifestyle Pro" class="brand-logo">
+        </a>
+        <div>
+          <h1 class="brand-title">Doanlifestyle TTS V2</h1>
+          <div class="brand-sub">TTS Doanlifestyle Pro • hoàn toàn miễn phí</div>
+        </div>
+      </div>
+
+      <p class="desc">
+        Bản này chạy song song với Version 1. Bạn giữ nguyên app cũ, và dùng bản này cho kịch bản nhiều người,
+        dialog không giới hạn, speaker không giới hạn, nghe thử từng câu và nghe toàn bộ kịch bản.
+      </p>
+    </div>
+
+    <div class="layout">
+      <section class="card">
+        <div class="title">Kịch bản hội thoại</div>
+        <p class="sub">
+          Thêm speaker và dialog không giới hạn. Mỗi đoạn thoại gắn với một speaker.
+        </p>
+
+        <div class="top-actions">
+          <button class="pill" id="addSpeakerBtn">+ Thêm speaker</button>
+          <button class="pill" id="addDialogBtn">+ Thêm dialog</button>
+          <button class="pill" id="sampleScriptBtn">Tạo mẫu kịch bản</button>
+          <button class="pill" id="clearAllBtn">Xóa tất cả dialog</button>
+        </div>
+
+        <div style="margin-top:16px;font-weight:900">Danh sách dialog</div>
+        <div id="dialogList" class="dialog-list"></div>
+
+        <div class="buttons">
+          <button class="main-btn green" id="playAllBtn">Nghe toàn bộ</button>
+          <button class="main-btn blue" id="exportJsonBtn">Xuất JSON</button>
+          <button class="main-btn amber" id="copyJsonBtn">Copy JSON</button>
+          <button class="main-btn red" id="resetBtn">Đặt lại</button>
+        </div>
+
+        <div class="status" id="statusBox">Sẵn sàng.</div>
+        <div class="json-box" id="jsonBox">JSON sẽ hiện ở đây...</div>
+      </section>
+
+      <aside class="card">
+        <div class="title">Speaker settings</div>
+        <p class="sub">
+          Đổi tên speaker, đổi màu và chọn giọng nghe thử cho từng speaker.
+        </p>
+
+        <div class="grid2">
+          <div>
+            <label for="projectName">Tên dự án</label>
+            <input id="projectName" value="Doanlifestyle V2 Multi-Speaker" />
+          </div>
+          <div>
+            <label for="previewVoice">Giọng preview chung</label>
+            <select id="previewVoiceSelect"></select>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;font-weight:900">Danh sách speaker</div>
+        <div id="speakerList" class="speaker-list"></div>
+
+        <div class="promo-box">
+          <div class="promo-title">TTS Doanlifestyle Pro hoàn toàn miễn phí</div>
+          <div class="promo-text">
+            Nếu bạn yêu thích ứng dụng này, hãy đăng ký kênh YouTube Nhạc Kinh Thánh để ủng hộ và đồng hành cùng Doanlifestyle.
+          </div>
+          <a class="yt-btn" href="https://www.youtube.com/@Nhac-KT" target="_blank" rel="noopener noreferrer">
+            ▶ Đăng ký kênh YouTube Nhạc Kinh Thánh
+          </a>
+
+          <div class="qr-box">
+            <div class="promo-text" style="margin-bottom:0">Quét mã QR để mở app nhanh</div>
+            <img id="qrImage" alt="QR code mở app" />
+          </div>
+        </div>
+
+        <div class="help">
+          <h4>Gợi ý dùng</h4>
+          <ul>
+            <li>Speaker 1: người dẫn chuyện</li>
+            <li>Speaker 2: nhân vật nam</li>
+            <li>Speaker 3: nhân vật nữ</li>
+            <li>Mỗi dialog có nút nghe thử riêng</li>
+            <li>Nút Nghe toàn bộ sẽ phát lần lượt toàn bộ kịch bản</li>
+          </ul>
+        </div>
+
+        <div class="help">
+          <h4>Link song song với bản cũ</h4>
+          <ul>
+            <li>Version 1: <b>index.html</b></li>
+            <li>Version 2: <b>v2-multispeaker.html</b></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-top">Lời Kinh Thánh hôm nay</div>
+      <div class="verse-box" id="verseText"></div>
+      <div class="verse-ref" id="verseRef"></div>
+    </footer>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const APP_LINK = "https://doanlifestyle-sketch.github.io/doanlifestyle-app/v2-multispeaker.html";
+
+    const BIBLE_VERSES = [
+      { text: "Hãy phó đường-lối mình cho Đức Giê-hô-va, và nhờ-cậy nơi Ngài, thì Ngài sẽ làm thành việc ấy.", ref: "Thi-thiên 37:5" },
+      { text: "Đức Giê-hô-va là Đấng chăn-giữ tôi; tôi sẽ chẳng thiếu-thốn gì.", ref: "Thi-thiên 23:1" },
+      { text: "Phàm việc gì các ngươi làm, hãy hết lòng mà làm, như làm cho Chúa, chớ không phải làm cho người ta.", ref: "Cô-lô-se 3:23" },
+      { text: "Ta để sự bình-an lại cho các ngươi; ta ban sự bình-an ta cho các ngươi.", ref: "Giăng 14:27" },
+      { text: "Hãy vui-mừng mãi mãi, cầu-nguyện không thôi, phàm việc gì cũng phải tạ ơn Chúa.", ref: "I Tê-sa-lô-ni-ca 5:16-18" },
+      { text: "Hãy trao gánh-nặng mình cho Đức Giê-hô-va, Ngài sẽ đỡ-đần cho.", ref: "Thi-thiên 55:22" },
+      { text: "Ta làm được mọi sự nhờ Đấng ban thêm sức cho ta.", ref: "Phi-líp 4:13" },
+      { text: "Hãy yên-lặng và biết rằng ta là Đức Chúa Trời.", ref: "Thi-thiên 46:10" },
+      { text: "Lòng nhân-từ của Đức Giê-hô-va chẳng hề dứt, sự thương-xót của Ngài không hề cùng.", ref: "Ca-thương 3:22" },
+      { text: "Vì Đức Giê-hô-va ban sự khôn-ngoan; từ miệng Ngài ra điều tri-thức và thông-sáng.", ref: "Châm-ngôn 2:6" },
+      { text: "Đức Giê-hô-va ở gần những người có lòng đau-thương.", ref: "Thi-thiên 34:18" },
+      { text: "Ngươi chớ sợ, vì ta ở cùng ngươi; chớ kinh-khiếp, vì ta là Đức Chúa Trời ngươi.", ref: "Ê-sai 41:10" }
+    ];
+
+    const speakerColors = [
+      "#D4A017","#A78BFA","#60A5FA","#34D399","#F87171",
+      "#F59E0B","#EC4899","#14B8A6","#8B5CF6","#22C55E"
+    ];
+
+    let project = {
+      projectName: "Doanlifestyle V2 Multi-Speaker",
+      previewVoice: "",
+      speakers: [],
+      dialogs: []
+    };
+
+    let synthVoices = [];
+    let speakingAll = false;
+
+    function uid(prefix="id"){
+      return prefix + "_" + Math.random().toString(36).slice(2,9);
+    }
+
+    function setStatus(text){
+      $("statusBox").textContent = text;
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function defaultSpeaker(index){
+      return {
+        id: uid("sp"),
+        name: "Speaker " + index,
+        color: speakerColors[(index - 1) % speakerColors.length],
+        style: "ấm áp, rõ chữ, tự nhiên",
+        previewVoice: ""
+      };
+    }
+
+    function defaultDialog(speakerId, text=""){
+      return {
+        id: uid("dl"),
+        speakerId,
+        text
+      };
+    }
+
+    function ensureBaseData(){
+      if(project.speakers.length === 0){
+        const s1 = defaultSpeaker(1);
+        const s2 = defaultSpeaker(2);
+        project.speakers.push(s1, s2);
+        project.dialogs.push(
+          defaultDialog(s1.id, "Xin chào bạn... hôm nay mình muốn kể cho bạn nghe một câu chuyện ngắn..."),
+          defaultDialog(s2.id, "Mình đang nghe đây... hãy kể tiếp đi..."),
+          defaultDialog(s1.id, "Có những lúc... chúng ta nghĩ mọi thứ đã quá muộn..."),
+          defaultDialog(s2.id, "Nhưng hy vọng đôi khi lại bắt đầu từ chính khoảnh khắc lặng im nhất...")
+        );
+      }
+    }
+
+    function saveProject(){
+      project.projectName = $("projectName").value;
+      project.previewVoice = $("previewVoiceSelect").value;
+      localStorage.setItem("dl_v2_multispeaker_project", JSON.stringify(project));
+    }
+
+    function loadProject(){
+      try{
+        const raw = localStorage.getItem("dl_v2_multispeaker_project");
+        if(raw){
+          project = JSON.parse(raw);
+        }
+      } catch(e){}
+      ensureBaseData();
+    }
+
+    function renderPreviewVoiceSelect(){
+      const select = $("previewVoiceSelect");
+      select.innerHTML = "";
+
+      const opt0 = document.createElement("option");
+      opt0.value = "";
+      opt0.textContent = "Giọng hệ thống mặc định";
+      select.appendChild(opt0);
+
+      synthVoices.forEach(v => {
+        const opt = document.createElement("option");
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})`;
+        select.appendChild(opt);
+      });
+
+      select.value = project.previewVoice || "";
+    }
+
+    function getVoiceByName(name){
+      return synthVoices.find(v => v.name === name);
+    }
+
+    function speakText(text, speaker){
+      if(!("speechSynthesis" in window)){
+        setStatus("Thiết bị này không hỗ trợ nghe thử bằng giọng hệ thống.");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      const utter = new SpeechSynthesisUtterance(text);
+      const chosenName = speaker?.previewVoice || $("previewVoiceSelect").value || "";
+      const v = getVoiceByName(chosenName);
+      if(v) utter.voice = v;
+
+      utter.rate = 0.95;
+      utter.pitch = 1;
+      utter.lang = "vi-VN";
+
+      utter.onstart = () => setStatus("Đang nghe thử: " + (speaker?.name || "Speaker"));
+      utter.onend = () => setStatus("Nghe thử xong.");
+      utter.onerror = () => setStatus("Không phát được nghe thử.");
+
+      window.speechSynthesis.speak(utter);
+    }
+
+    function playDialogsSequentially(index = 0){
+      if(index >= project.dialogs.length){
+        speakingAll = false;
+        setStatus("Đã nghe xong toàn bộ kịch bản.");
+        return;
+      }
+
+      const dl = project.dialogs[index];
+      const sp = project.speakers.find(s => s.id === dl.speakerId) || project.speakers[0];
+
+      if(!dl.text.trim()){
+        playDialogsSequentially(index + 1);
+        return;
+      }
+
+      const utter = new SpeechSynthesisUtterance(dl.text);
+      const chosenName = sp?.previewVoice || $("previewVoiceSelect").value || "";
+      const v = getVoiceByName(chosenName);
+      if(v) utter.voice = v;
+
+      utter.rate = 0.95;
+      utter.pitch = 1;
+      utter.lang = "vi-VN";
+
+      utter.onstart = () => setStatus("Đang phát: " + sp.name + " • dialog " + (index + 1));
+      utter.onend = () => {
+        if(speakingAll) playDialogsSequentially(index + 1);
+      };
+      utter.onerror = () => {
+        if(speakingAll) playDialogsSequentially(index + 1);
+      };
+
+      window.speechSynthesis.speak(utter);
+    }
+
+    function playAll(){
+      if(!("speechSynthesis" in window)){
+        setStatus("Thiết bị này không hỗ trợ nghe thử.");
+        return;
+      }
+
+      if(project.dialogs.length === 0){
+        setStatus("Chưa có dialog nào.");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+      speakingAll = true;
+      playDialogsSequentially(0);
+    }
+
+    function renderSpeakerList(){
+      const wrap = $("speakerList");
+      wrap.innerHTML = "";
+
+      project.speakers.forEach((sp, idx) => {
+        const card = document.createElement("div");
+        card.className = "speaker-card";
+        card.innerHTML = `
+          <div class="speaker-top">
+            <div class="speaker-left">
+              <div class="dot" style="background:${sp.color}"></div>
+              <div>
+                <div class="speaker-name">${escapeHtml(sp.name)}</div>
+                <div class="muted">${escapeHtml(sp.style)}</div>
+              </div>
+            </div>
+            <div class="row" style="margin:0">
+              <button class="small-btn" data-act="up">↑</button>
+              <button class="small-btn" data-act="down">↓</button>
+              <button class="small-btn" data-act="remove">Xóa</button>
+            </div>
+          </div>
+
+          <div class="grid3">
+            <div>
+              <label>Tên speaker</label>
+              <input value="${escapeHtml(sp.name)}" data-field="name">
+            </div>
+            <div>
+              <label>Màu</label>
+              <input type="color" value="${sp.color}" data-field="color" style="height:50px;padding:6px 8px">
+            </div>
+            <div>
+              <label>Giọng preview</label>
+              <select data-field="voice">
+                <option value="">Mặc định</option>
+                ${synthVoices.map(v => `<option value="${escapeHtml(v.name)}" ${sp.previewVoice===v.name?"selected":""}>${escapeHtml(v.name)}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+
+          <label>Style speaker</label>
+          <input value="${escapeHtml(sp.style)}" data-field="style">
+
+          <div class="row">
+            <button class="small-btn" data-act="test">Nghe thử speaker</button>
+            <button class="small-btn" data-act="add-dialog">+ Thêm dialog</button>
+          </div>
+        `;
+
+        card.querySelector('[data-field="name"]').oninput = (e) => {
+          sp.name = e.target.value;
+          saveProject();
+          renderSpeakerList();
+          renderDialogList();
+        };
+
+        card.querySelector('[data-field="color"]').oninput = (e) => {
+          sp.color = e.target.value;
+          saveProject();
+          renderSpeakerList();
+          renderDialogList();
+        };
+
+        card.querySelector('[data-field="style"]').oninput = (e) => {
+          sp.style = e.target.value;
+          saveProject();
+          renderSpeakerList();
+        };
+
+        card.querySelector('[data-field="voice"]').onchange = (e) => {
+          sp.previewVoice = e.target.value;
+          saveProject();
+        };
+
+        card.querySelector('[data-act="test"]').onclick = () => {
+          speakText(`Xin chào bạn. Đây là nghe thử của ${sp.name}.`, sp);
+        };
+
+        card.querySelector('[data-act="add-dialog"]').onclick = () => {
+          project.dialogs.push(defaultDialog(sp.id, ""));
+          saveProject();
+          renderDialogList();
+          setStatus("Đã thêm dialog cho " + sp.name);
+        };
+
+        card.querySelector('[data-act="remove"]').onclick = () => {
+          if(project.speakers.length <= 1){
+            setStatus("Phải còn ít nhất 1 speaker.");
+            return;
+          }
+          project.speakers = project.speakers.filter(s => s.id !== sp.id);
+          project.dialogs = project.dialogs.filter(d => d.speakerId !== sp.id);
+          saveProject();
+          renderSpeakerList();
+          renderDialogList();
+          setStatus("Đã xóa " + sp.name);
+        };
+
+        card.querySelector('[data-act="up"]').onclick = () => {
+          if(idx === 0) return;
+          [project.speakers[idx - 1], project.speakers[idx]] = [project.speakers[idx], project.speakers[idx - 1]];
+          saveProject();
+          renderSpeakerList();
+        };
+
+        card.querySelector('[data-act="down"]').onclick = () => {
+          if(idx === project.speakers.length - 1) return;
+          [project.speakers[idx + 1], project.speakers[idx]] = [project.speakers[idx], project.speakers[idx + 1]];
+          saveProject();
+          renderSpeakerList();
+        };
+
+        wrap.appendChild(card);
+      });
+    }
+
+    function renderDialogList(){
+      const wrap = $("dialogList");
+      wrap.innerHTML = "";
+
+      if(project.dialogs.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "dialog-card";
+        empty.textContent = "Chưa có dialog nào. Bấm “+ Thêm dialog”.";
+        wrap.appendChild(empty);
+        return;
+      }
+
+      project.dialogs.forEach((dl, idx) => {
+        const sp = project.speakers.find(s => s.id === dl.speakerId) || project.speakers[0];
+
+        const card = document.createElement("div");
+        card.className = "dialog-card";
+        card.innerHTML = `
+          <div class="dialog-top">
+            <div class="dialog-left">
+              <div class="dot" style="background:${sp.color}"></div>
+              <div>
+                <div class="speaker-name">Dialog ${idx + 1} • ${escapeHtml(sp.name)}</div>
+                <div class="muted">${escapeHtml(sp.style)}</div>
+              </div>
+            </div>
+            <div class="row" style="margin:0">
+              <button class="small-btn" data-act="up">↑</button>
+              <button class="small-btn" data-act="down">↓</button>
+              <button class="small-btn" data-act="remove">Xóa</button>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div>
+              <label>Speaker</label>
+              <select data-field="speakerId">
+                ${project.speakers.map(s => `<option value="${s.id}" ${s.id===dl.speakerId?"selected":""}>${escapeHtml(s.name)}</option>`).join("")}
+              </select>
+            </div>
+            <div>
+              <label>Ký tự</label>
+              <input value="${dl.text.length}" disabled>
+            </div>
+          </div>
+
+          <label>Nội dung thoại</label>
+          <textarea data-field="text">${escapeHtml(dl.text)}</textarea>
+
+          <div class="row">
+            <button class="small-btn" data-act="preview">Nghe thử đoạn này</button>
+            <button class="small-btn" data-act="duplicate">Nhân đôi đoạn</button>
+          </div>
+        `;
+
+        card.querySelector('[data-field="speakerId"]').onchange = (e) => {
+          dl.speakerId = e.target.value;
+          saveProject();
+          renderDialogList();
+        };
+
+        card.querySelector('[data-field="text"]').oninput = (e) => {
+          dl.text = e.target.value;
+          saveProject();
+          renderDialogList();
+        };
+
+        card.querySelector('[data-act="preview"]').onclick = () => {
+          const speaker = project.speakers.find(s => s.id === dl.speakerId) || project.speakers[0];
+          if(!dl.text.trim()){
+            setStatus("Đoạn này đang trống.");
+            return;
+          }
+          speakText(dl.text, speaker);
+        };
+
+        card.querySelector('[data-act="duplicate"]').onclick = () => {
+          project.dialogs.splice(idx + 1, 0, { ...dl, id: uid("dl") });
+          saveProject();
+          renderDialogList();
+          setStatus("Đã nhân đôi dialog.");
+        };
+
+        card.querySelector('[data-act="remove"]').onclick = () => {
+          project.dialogs = project.dialogs.filter(d => d.id !== dl.id);
+          saveProject();
+          renderDialogList();
+          setStatus("Đã xóa dialog.");
+        };
+
+        card.querySelector('[data-act="up"]').onclick = () => {
+          if(idx === 0) return;
+          [project.dialogs[idx - 1], project.dialogs[idx]] = [project.dialogs[idx], project.dialogs[idx - 1]];
+          saveProject();
+          renderDialogList();
+        };
+
+        card.querySelector('[data-act="down"]').onclick = () => {
+          if(idx === project.dialogs.length - 1) return;
+          [project.dialogs[idx + 1], project.dialogs[idx]] = [project.dialogs[idx], project.dialogs[idx + 1]];
+          saveProject();
+          renderDialogList();
+        };
+
+        wrap.appendChild(card);
+      });
+    }
+
+    function addSpeaker(){
+      const sp = defaultSpeaker(project.speakers.length + 1);
+      project.speakers.push(sp);
+      saveProject();
+      renderSpeakerList();
+      setStatus("Đã thêm " + sp.name);
+    }
+
+    function addDialog(){
+      const firstSpeaker = project.speakers[0];
+      if(!firstSpeaker){
+        setStatus("Bạn cần ít nhất 1 speaker.");
+        return;
+      }
+      project.dialogs.push(defaultDialog(firstSpeaker.id, ""));
+      saveProject();
+      renderDialogList();
+      setStatus("Đã thêm dialog mới.");
+    }
+
+    function makeSampleScript(){
+      project.speakers = [
+        { id: uid("sp"), name:"Người dẫn", color:"#D4A017", style:"ấm áp, rõ chữ, kể chuyện", previewVoice:"" },
+        { id: uid("sp"), name:"Nhân vật nam", color:"#60A5FA", style:"nam trầm, chắc, điềm tĩnh", previewVoice:"" },
+        { id: uid("sp"), name:"Nhân vật nữ", color:"#A78BFA", style:"dịu dàng, mềm, cảm xúc", previewVoice:"" }
+      ];
+
+      project.dialogs = [
+        { id: uid("dl"), speakerId: project.speakers[0].id, text:"Xin chào bạn... hôm nay chúng ta cùng bước vào một câu chuyện nhỏ..." },
+        { id: uid("dl"), speakerId: project.speakers[1].id, text:"Tôi đã nghĩ... mọi thứ đã quá muộn rồi..." },
+        { id: uid("dl"), speakerId: project.speakers[2].id, text:"Không đâu... đôi khi hy vọng lại bắt đầu từ chính khoảnh khắc lặng im nhất..." },
+        { id: uid("dl"), speakerId: project.speakers[0].id, text:"Và từ giây phút ấy... mọi thứ bắt đầu đổi khác..." }
+      ];
+
+      saveProject();
+      renderSpeakerList();
+      renderDialogList();
+      setStatus("Đã tạo mẫu kịch bản.");
+    }
+
+    function exportJson(){
+      project.projectName = $("projectName").value;
+      const pretty = JSON.stringify(project, null, 2);
+      $("jsonBox").textContent = pretty;
+      setStatus("Đã xuất JSON.");
+      return pretty;
+    }
+
+    async function copyJson(){
+      const text = exportJson();
+      try{
+        await navigator.clipboard.writeText(text);
+        setStatus("Đã copy JSON.");
+      } catch(e){
+        setStatus("Không copy được. Hãy copy thủ công trong ô JSON.");
+      }
+    }
+
+    function resetAll(){
+      localStorage.removeItem("dl_v2_multispeaker_project");
+      project = {
+        projectName: "Doanlifestyle V2 Multi-Speaker",
+        previewVoice: "",
+        speakers: [],
+        dialogs: []
+      };
+      ensureBaseData();
+      $("projectName").value = project.projectName;
+      renderPreviewVoiceSelect();
+      renderSpeakerList();
+      renderDialogList();
+      exportJson();
+      renderRandomVerse();
+      setStatus("Đã đặt lại dự án.");
+    }
+
+    function loadVoices(){
+      synthVoices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+      renderPreviewVoiceSelect();
+      renderSpeakerList();
+    }
+
+    function renderQRCode(){
+      $("qrImage").src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" + encodeURIComponent(APP_LINK);
+    }
+
+    function renderRandomVerse(){
+      const verse = BIBLE_VERSES[Math.floor(Math.random() * BIBLE_VERSES.length)];
+      $("verseText").textContent = verse.text;
+      $("verseRef").textContent = verse.ref;
+    }
+
+    $("projectName").addEventListener("input", () => {
+      project.projectName = $("projectName").value;
+      saveProject();
+    });
+
+    $("previewVoiceSelect").addEventListener("change", () => {
+      project.previewVoice = $("previewVoiceSelect").value;
+      saveProject();
+    });
+
+    $("addSpeakerBtn").onclick = addSpeaker;
+    $("addDialogBtn").onclick = addDialog;
+    $("sampleScriptBtn").onclick = makeSampleScript;
+    $("clearAllBtn").onclick = () => {
+      project.dialogs = [];
+      saveProject();
+      renderDialogList();
+      setStatus("Đã xóa tất cả dialog.");
+    };
+
+    $("playAllBtn").onclick = playAll;
+    $("exportJsonBtn").onclick = exportJson;
+    $("copyJsonBtn").onclick = copyJson;
+    $("resetBtn").onclick = resetAll;
+
+    loadProject();
+    $("projectName").value = project.projectName;
+    renderDialogList();
+    exportJson();
+    renderQRCode();
+    renderRandomVerse();
+
+    if("speechSynthesis" in window){
+      loadVoices();
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    } else {
+      renderPreviewVoiceSelect();
+      renderSpeakerList();
+    }
+  </script>
+</body>
+</html>
